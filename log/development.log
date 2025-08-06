@@ -1,0 +1,892 @@
+  [1m[35mSQL (0.6ms)[0m  [1m[35mSET search_path TO public /*application='ECommApi'*/[0m
+  [1m[35m (317.8ms)[0m  [1m[35mCREATE DATABASE "e_comm_api_development" ENCODING = 'unicode' /*application='ECommApi'*/[0m
+  [1m[35mSQL (3.2ms)[0m  [1m[35mSET search_path TO public /*application='ECommApi'*/[0m
+  [1m[35m (278.3ms)[0m  [1m[35mCREATE DATABASE "e_comm_api_test" ENCODING = 'unicode' /*application='ECommApi'*/[0m
+  [1m[35m (7.9ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" character varying NOT NULL PRIMARY KEY) /*application='ECommApi'*/[0m
+  [1m[35m (6.4ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" character varying NOT NULL PRIMARY KEY, "value" character varying, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL) /*application='ECommApi'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.8ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='ECommApi'*/[0m
+  [1m[36mCACHE ActiveRecord::SchemaMigration Load (0.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mCACHE ActiveRecord::SchemaMigration Load (0.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mCACHE ActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mCACHE ActiveRecord::SchemaMigration Load (0.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mCACHE ActiveRecord::SchemaMigration Load (2.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mCACHE ActiveRecord::SchemaMigration Load (2.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (2.2ms)[0m  [1m[34mSELECT pg_try_advisory_lock(6206281244701282920) /*application='ECommApi'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (1.4ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='ECommApi'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Load (1.1ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = 'environment' ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1 /*application='ECommApi'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Create (2.8ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ('environment', 'development', '2025-08-06 10:57:38.579857', '2025-08-06 10:57:38.579864') RETURNING "key" /*application='ECommApi'*/[0m
+Migrating to CreateCategories (20250806105230)
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN /*application='ECommApi'*/[0m
+  [1m[35m (11.9ms)[0m  [1m[35mCREATE TABLE "categories" ("id" bigserial primary key, "name" character varying NOT NULL, "description" text, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL) /*application='ECommApi'*/[0m
+  [1m[35m (2.6ms)[0m  [1m[35mCREATE INDEX "index_categories_on_name" ON "categories" ("name") /*application='ECommApi'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.5ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ('20250806105230') RETURNING "version" /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (1.5ms)[0m  [1m[35mCOMMIT /*application='ECommApi'*/[0m
+Migrating to CreateProducts (20250806105424)
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN /*application='ECommApi'*/[0m
+  [1m[35m (6.9ms)[0m  [1m[35mCREATE TABLE "products" ("id" bigserial primary key, "name" character varying NOT NULL, "description" text, "price" decimal(10,2) NOT NULL, "inventory_count" integer DEFAULT 0, "category_id" bigint NOT NULL, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL, CONSTRAINT "fk_rails_fb915499a4"
+FOREIGN KEY ("category_id")
+  REFERENCES "categories" ("id")
+) /*application='ECommApi'*/[0m
+  [1m[35m (4.7ms)[0m  [1m[35mCREATE INDEX "index_products_on_category_id" ON "products" ("category_id") /*application='ECommApi'*/[0m
+  [1m[35m (4.6ms)[0m  [1m[35mCREATE INDEX "index_products_on_name" ON "products" ("name") /*application='ECommApi'*/[0m
+  [1m[35m (2.4ms)[0m  [1m[35mCREATE INDEX "index_products_on_price" ON "products" ("price") /*application='ECommApi'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Create (1.4ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ('20250806105424') RETURNING "version" /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (2.8ms)[0m  [1m[35mCOMMIT /*application='ECommApi'*/[0m
+Migrating to CreateUsers (20250806105433)
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN /*application='ECommApi'*/[0m
+  [1m[35m (14.4ms)[0m  [1m[35mCREATE TABLE "users" ("id" bigserial primary key, "email" character varying NOT NULL, "password_digest" character varying NOT NULL, "first_name" character varying, "last_name" character varying, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL) /*application='ECommApi'*/[0m
+  [1m[35m (2.9ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_users_on_email" ON "users" ("email") /*application='ECommApi'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Create (1.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ('20250806105433') RETURNING "version" /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (1.0ms)[0m  [1m[35mCOMMIT /*application='ECommApi'*/[0m
+Migrating to CreateOrders (20250806105443)
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN /*application='ECommApi'*/[0m
+  [1m[35m (7.4ms)[0m  [1m[35mCREATE TABLE "orders" ("id" bigserial primary key, "user_id" bigint NOT NULL, "total" decimal(10,2) NOT NULL, "status" character varying DEFAULT 'pending', "order_date" timestamp(6) NOT NULL, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL, CONSTRAINT "fk_rails_f868b47f6a"
+FOREIGN KEY ("user_id")
+  REFERENCES "users" ("id")
+) /*application='ECommApi'*/[0m
+  [1m[35m (2.0ms)[0m  [1m[35mCREATE INDEX "index_orders_on_user_id" ON "orders" ("user_id") /*application='ECommApi'*/[0m
+  [1m[35m (3.9ms)[0m  [1m[35mCREATE INDEX "index_orders_on_status" ON "orders" ("status") /*application='ECommApi'*/[0m
+  [1m[35m (3.5ms)[0m  [1m[35mCREATE INDEX "index_orders_on_order_date" ON "orders" ("order_date") /*application='ECommApi'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.3ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ('20250806105443') RETURNING "version" /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (1.2ms)[0m  [1m[35mCOMMIT /*application='ECommApi'*/[0m
+Migrating to CreateOrderItems (20250806105536)
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mBEGIN /*application='ECommApi'*/[0m
+  [1m[35m (7.9ms)[0m  [1m[35mCREATE TABLE "order_items" ("id" bigserial primary key, "order_id" bigint NOT NULL, "product_id" bigint NOT NULL, "quantity" integer NOT NULL, "unit_price" decimal(10,2) NOT NULL, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL, CONSTRAINT "fk_rails_e3cb28f071"
+FOREIGN KEY ("order_id")
+  REFERENCES "orders" ("id")
+, CONSTRAINT "fk_rails_f1a29ddd47"
+FOREIGN KEY ("product_id")
+  REFERENCES "products" ("id")
+) /*application='ECommApi'*/[0m
+  [1m[35m (3.9ms)[0m  [1m[35mCREATE INDEX "index_order_items_on_order_id" ON "order_items" ("order_id") /*application='ECommApi'*/[0m
+  [1m[35m (2.7ms)[0m  [1m[35mCREATE INDEX "index_order_items_on_product_id" ON "order_items" ("product_id") /*application='ECommApi'*/[0m
+  [1m[35m (1.9ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_order_items_on_order_id_and_product_id" ON "order_items" ("order_id", "product_id") /*application='ECommApi'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.2ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ('20250806105536') RETURNING "version" /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (0.9ms)[0m  [1m[35mCOMMIT /*application='ECommApi'*/[0m
+Migrating to CreateCartItems (20250806105552)
+  [1m[36mTRANSACTION (2.9ms)[0m  [1m[35mBEGIN /*application='ECommApi'*/[0m
+  [1m[35m (4.3ms)[0m  [1m[35mCREATE TABLE "cart_items" ("id" bigserial primary key, "user_id" bigint NOT NULL, "product_id" bigint NOT NULL, "quantity" integer DEFAULT 1 NOT NULL, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL, CONSTRAINT "fk_rails_fcb2cbf0bc"
+FOREIGN KEY ("user_id")
+  REFERENCES "users" ("id")
+, CONSTRAINT "fk_rails_681a180e84"
+FOREIGN KEY ("product_id")
+  REFERENCES "products" ("id")
+) /*application='ECommApi'*/[0m
+  [1m[35m (1.9ms)[0m  [1m[35mCREATE INDEX "index_cart_items_on_user_id" ON "cart_items" ("user_id") /*application='ECommApi'*/[0m
+  [1m[35m (2.0ms)[0m  [1m[35mCREATE INDEX "index_cart_items_on_product_id" ON "cart_items" ("product_id") /*application='ECommApi'*/[0m
+  [1m[35m (5.6ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_cart_items_on_user_id_and_product_id" ON "cart_items" ("user_id", "product_id") /*application='ECommApi'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.7ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ('20250806105552') RETURNING "version" /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (1.2ms)[0m  [1m[35mCOMMIT /*application='ECommApi'*/[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT pg_advisory_unlock(6206281244701282920) /*application='ECommApi'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='ECommApi'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.9ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='ECommApi'*/[0m
+  [1m[36mCartItem Load (1.8ms)[0m  [1m[34mSELECT "cart_items".* FROM "cart_items" /*application='ECommApi'*/[0m
+  [1m[36mOrderItem Load (1.8ms)[0m  [1m[34mSELECT "order_items".* FROM "order_items" /*application='ECommApi'*/[0m
+  [1m[36mOrder Load (1.8ms)[0m  [1m[34mSELECT "orders".* FROM "orders" /*application='ECommApi'*/[0m
+  [1m[36mProduct Load (1.6ms)[0m  [1m[34mSELECT "products".* FROM "products" /*application='ECommApi'*/[0m
+  [1m[36mCategory Load (1.2ms)[0m  [1m[34mSELECT "categories".* FROM "categories" /*application='ECommApi'*/[0m
+  [1m[36mUser Load (0.9ms)[0m  [1m[34mSELECT "users".* FROM "users" /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN /*application='ECommApi'*/[0m
+  [1m[36mCategory Exists? (6.0ms)[0m  [1m[34mSELECT 1 AS one FROM "categories" WHERE "categories"."name" = 'Electronics' LIMIT 1 /*application='ECommApi'*/[0m
+  [1m[36mCategory Create (0.7ms)[0m  [1m[32mINSERT INTO "categories" ("name", "description", "created_at", "updated_at") VALUES ('Electronics', 'Electronic devices and accessories', '2025-08-06 11:07:56.371935', '2025-08-06 11:07:56.371935') RETURNING "id" /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (1.5ms)[0m  [1m[35mCOMMIT /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN /*application='ECommApi'*/[0m
+  [1m[36mCategory Exists? (5.1ms)[0m  [1m[34mSELECT 1 AS one FROM "categories" WHERE "categories"."name" = 'Clothing' LIMIT 1 /*application='ECommApi'*/[0m
+  [1m[36mCategory Create (0.5ms)[0m  [1m[32mINSERT INTO "categories" ("name", "description", "created_at", "updated_at") VALUES ('Clothing', 'Apparel and fashion items', '2025-08-06 11:07:56.417129', '2025-08-06 11:07:56.417129') RETURNING "id" /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (0.7ms)[0m  [1m[35mCOMMIT /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (1.1ms)[0m  [1m[35mBEGIN /*application='ECommApi'*/[0m
+  [1m[36mCategory Exists? (7.8ms)[0m  [1m[34mSELECT 1 AS one FROM "categories" WHERE "categories"."name" = 'Books' LIMIT 1 /*application='ECommApi'*/[0m
+  [1m[36mCategory Create (0.2ms)[0m  [1m[32mINSERT INTO "categories" ("name", "description", "created_at", "updated_at") VALUES ('Books', 'Books and reading materials', '2025-08-06 11:07:56.440064', '2025-08-06 11:07:56.440064') RETURNING "id" /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (1.1ms)[0m  [1m[35mCOMMIT /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN /*application='ECommApi'*/[0m
+  [1m[36mCategory Exists? (1.5ms)[0m  [1m[34mSELECT 1 AS one FROM "categories" WHERE "categories"."name" = 'Home & Garden' LIMIT 1 /*application='ECommApi'*/[0m
+  [1m[36mCategory Create (0.4ms)[0m  [1m[32mINSERT INTO "categories" ("name", "description", "created_at", "updated_at") VALUES ('Home & Garden', 'Home improvement and garden supplies', '2025-08-06 11:07:56.461063', '2025-08-06 11:07:56.461063') RETURNING "id" /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (0.9ms)[0m  [1m[35mCOMMIT /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN /*application='ECommApi'*/[0m
+  [1m[36mUser Exists? (1.7ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = 'john@example.com' LIMIT 1 /*application='ECommApi'*/[0m
+  [1m[36mUser Create (0.5ms)[0m  [1m[32mINSERT INTO "users" ("email", "password_digest", "first_name", "last_name", "created_at", "updated_at") VALUES ('john@example.com', '$2a$12$8p4rGb3Ia.qUkTBI7vQvfezTYOXuKkbDcOf0CDRd0ChcHn14D51M2', 'John', 'Doe', '2025-08-06 11:07:56.761448', '2025-08-06 11:07:56.761448') RETURNING "id" /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (0.8ms)[0m  [1m[35mCOMMIT /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN /*application='ECommApi'*/[0m
+  [1m[36mUser Exists? (1.3ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = 'jane@example.com' LIMIT 1 /*application='ECommApi'*/[0m
+  [1m[36mUser Create (0.8ms)[0m  [1m[32mINSERT INTO "users" ("email", "password_digest", "first_name", "last_name", "created_at", "updated_at") VALUES ('jane@example.com', '$2a$12$aMSeojjHRQ.7kWyknA4ezeOPC3HuLlLRfGRN2p6ZvSanXgGmBVO7a', 'Jane', 'Smith', '2025-08-06 11:07:57.002921', '2025-08-06 11:07:57.002921') RETURNING "id" /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (2.7ms)[0m  [1m[35mCOMMIT /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN /*application='ECommApi'*/[0m
+  [1m[36mProduct Create (4.0ms)[0m  [1m[32mINSERT INTO "products" ("name", "description", "price", "inventory_count", "category_id", "created_at", "updated_at") VALUES ('iPhone 15', 'Latest Apple smartphone with advanced features', 999.99, 50, 1, '2025-08-06 11:07:57.054986', '2025-08-06 11:07:57.054986') RETURNING "id" /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (1.4ms)[0m  [1m[35mCOMMIT /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mBEGIN /*application='ECommApi'*/[0m
+  [1m[36mProduct Create (2.5ms)[0m  [1m[32mINSERT INTO "products" ("name", "description", "price", "inventory_count", "category_id", "created_at", "updated_at") VALUES ('Samsung Galaxy S24', 'Powerful Android smartphone', 899.99, 30, 1, '2025-08-06 11:07:57.078043', '2025-08-06 11:07:57.078043') RETURNING "id" /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (0.9ms)[0m  [1m[35mCOMMIT /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN /*application='ECommApi'*/[0m
+  [1m[36mProduct Create (1.9ms)[0m  [1m[32mINSERT INTO "products" ("name", "description", "price", "inventory_count", "category_id", "created_at", "updated_at") VALUES ('MacBook Pro', 'High-performance laptop for professionals', 1999.99, 15, 1, '2025-08-06 11:07:57.088285', '2025-08-06 11:07:57.088285') RETURNING "id" /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (0.8ms)[0m  [1m[35mCOMMIT /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN /*application='ECommApi'*/[0m
+  [1m[36mProduct Create (1.6ms)[0m  [1m[32mINSERT INTO "products" ("name", "description", "price", "inventory_count", "category_id", "created_at", "updated_at") VALUES ('Sony Headphones', 'Noise-canceling wireless headphones', 299.99, 100, 1, '2025-08-06 11:07:57.110905', '2025-08-06 11:07:57.110905') RETURNING "id" /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (0.7ms)[0m  [1m[35mCOMMIT /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN /*application='ECommApi'*/[0m
+  [1m[36mProduct Create (1.6ms)[0m  [1m[32mINSERT INTO "products" ("name", "description", "price", "inventory_count", "category_id", "created_at", "updated_at") VALUES ('Denim Jeans', 'Classic blue denim jeans', 79.99, 200, 2, '2025-08-06 11:07:57.118086', '2025-08-06 11:07:57.118086') RETURNING "id" /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (0.8ms)[0m  [1m[35mCOMMIT /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN /*application='ECommApi'*/[0m
+  [1m[36mProduct Create (1.9ms)[0m  [1m[32mINSERT INTO "products" ("name", "description", "price", "inventory_count", "category_id", "created_at", "updated_at") VALUES ('Cotton T-Shirt', 'Comfortable cotton t-shirt', 24.99, 150, 2, '2025-08-06 11:07:57.124688', '2025-08-06 11:07:57.124688') RETURNING "id" /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (1.2ms)[0m  [1m[35mCOMMIT /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN /*application='ECommApi'*/[0m
+  [1m[36mProduct Create (1.8ms)[0m  [1m[32mINSERT INTO "products" ("name", "description", "price", "inventory_count", "category_id", "created_at", "updated_at") VALUES ('Leather Jacket', 'Premium leather jacket', 199.99, 25, 2, '2025-08-06 11:07:57.133008', '2025-08-06 11:07:57.133008') RETURNING "id" /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (0.7ms)[0m  [1m[35mCOMMIT /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN /*application='ECommApi'*/[0m
+  [1m[36mProduct Create (1.7ms)[0m  [1m[32mINSERT INTO "products" ("name", "description", "price", "inventory_count", "category_id", "created_at", "updated_at") VALUES ('Running Shoes', 'Comfortable running shoes', 129.99, 80, 2, '2025-08-06 11:07:57.140569', '2025-08-06 11:07:57.140569') RETURNING "id" /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (0.7ms)[0m  [1m[35mCOMMIT /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN /*application='ECommApi'*/[0m
+  [1m[36mProduct Create (1.3ms)[0m  [1m[32mINSERT INTO "products" ("name", "description", "price", "inventory_count", "category_id", "created_at", "updated_at") VALUES ('The Great Gatsby', 'Classic American novel by F. Scott Fitzgerald', 12.99, 500, 3, '2025-08-06 11:07:57.148412', '2025-08-06 11:07:57.148412') RETURNING "id" /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (0.7ms)[0m  [1m[35mCOMMIT /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN /*application='ECommApi'*/[0m
+  [1m[36mProduct Create (9.4ms)[0m  [1m[32mINSERT INTO "products" ("name", "description", "price", "inventory_count", "category_id", "created_at", "updated_at") VALUES ('To Kill a Mockingbird', 'Pulitzer Prize-winning novel by Harper Lee', 14.99, 300, 3, '2025-08-06 11:07:57.158936', '2025-08-06 11:07:57.158936') RETURNING "id" /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (0.8ms)[0m  [1m[35mCOMMIT /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN /*application='ECommApi'*/[0m
+  [1m[36mProduct Create (1.3ms)[0m  [1m[32mINSERT INTO "products" ("name", "description", "price", "inventory_count", "category_id", "created_at", "updated_at") VALUES ('Programming Ruby', 'Comprehensive guide to Ruby programming', 49.99, 75, 3, '2025-08-06 11:07:57.172679', '2025-08-06 11:07:57.172679') RETURNING "id" /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (0.8ms)[0m  [1m[35mCOMMIT /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN /*application='ECommApi'*/[0m
+  [1m[36mProduct Create (1.3ms)[0m  [1m[32mINSERT INTO "products" ("name", "description", "price", "inventory_count", "category_id", "created_at", "updated_at") VALUES ('Garden Hose', '50ft expandable garden hose', 39.99, 60, 4, '2025-08-06 11:07:57.180553', '2025-08-06 11:07:57.180553') RETURNING "id" /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (0.9ms)[0m  [1m[35mCOMMIT /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN /*application='ECommApi'*/[0m
+  [1m[36mProduct Create (1.3ms)[0m  [1m[32mINSERT INTO "products" ("name", "description", "price", "inventory_count", "category_id", "created_at", "updated_at") VALUES ('Plant Pot Set', 'Set of 5 ceramic plant pots', 29.99, 40, 4, '2025-08-06 11:07:57.188325', '2025-08-06 11:07:57.188325') RETURNING "id" /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (0.7ms)[0m  [1m[35mCOMMIT /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN /*application='ECommApi'*/[0m
+  [1m[36mProduct Create (1.7ms)[0m  [1m[32mINSERT INTO "products" ("name", "description", "price", "inventory_count", "category_id", "created_at", "updated_at") VALUES ('LED Light Bulbs', 'Energy-efficient LED bulbs (4-pack)', 19.99, 200, 4, '2025-08-06 11:07:57.192514', '2025-08-06 11:07:57.192514') RETURNING "id" /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (0.9ms)[0m  [1m[35mCOMMIT /*application='ECommApi'*/[0m
+  [1m[36mProduct Load (0.5ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE "products"."name" = 'iPhone 15' LIMIT 1 /*application='ECommApi'*/[0m
+  [1m[36mProduct Load (0.3ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE "products"."name" = 'Denim Jeans' LIMIT 1 /*application='ECommApi'*/[0m
+  [1m[36mProduct Load (0.3ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE "products"."name" = 'Sony Headphones' LIMIT 1 /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN /*application='ECommApi'*/[0m
+  [1m[36mCartItem Exists? (2.5ms)[0m  [1m[34mSELECT 1 AS one FROM "cart_items" WHERE "cart_items"."product_id" = 1 AND "cart_items"."user_id" = 1 LIMIT 1 /*application='ECommApi'*/[0m
+  [1m[36mCartItem Create (1.3ms)[0m  [1m[32mINSERT INTO "cart_items" ("user_id", "product_id", "quantity", "created_at", "updated_at") VALUES (1, 1, 1, '2025-08-06 11:07:57.263367', '2025-08-06 11:07:57.263367') RETURNING "id" /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (1.1ms)[0m  [1m[35mCOMMIT /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN /*application='ECommApi'*/[0m
+  [1m[36mCartItem Exists? (1.3ms)[0m  [1m[34mSELECT 1 AS one FROM "cart_items" WHERE "cart_items"."product_id" = 4 AND "cart_items"."user_id" = 1 LIMIT 1 /*application='ECommApi'*/[0m
+  [1m[36mCartItem Create (0.6ms)[0m  [1m[32mINSERT INTO "cart_items" ("user_id", "product_id", "quantity", "created_at", "updated_at") VALUES (1, 4, 2, '2025-08-06 11:07:57.278228', '2025-08-06 11:07:57.278228') RETURNING "id" /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (0.7ms)[0m  [1m[35mCOMMIT /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN /*application='ECommApi'*/[0m
+  [1m[36mCartItem Exists? (1.9ms)[0m  [1m[34mSELECT 1 AS one FROM "cart_items" WHERE "cart_items"."product_id" = 5 AND "cart_items"."user_id" = 2 LIMIT 1 /*application='ECommApi'*/[0m
+  [1m[36mCartItem Create (0.4ms)[0m  [1m[32mINSERT INTO "cart_items" ("user_id", "product_id", "quantity", "created_at", "updated_at") VALUES (2, 5, 1, '2025-08-06 11:07:57.288346', '2025-08-06 11:07:57.288346') RETURNING "id" /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (1.0ms)[0m  [1m[35mCOMMIT /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN /*application='ECommApi'*/[0m
+  ↳ app/models/order.rb:27:in `calculate_total'
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK /*application='ECommApi'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.8ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='ECommApi'*/[0m
+  [1m[36mCartItem Load (0.8ms)[0m  [1m[34mSELECT "cart_items".* FROM "cart_items" /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN /*application='ECommApi'*/[0m
+  [1m[36mCartItem Destroy (3.3ms)[0m  [1m[31mDELETE FROM "cart_items" WHERE "cart_items"."id" = 1 /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (2.5ms)[0m  [1m[35mCOMMIT /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN /*application='ECommApi'*/[0m
+  [1m[36mCartItem Destroy (1.6ms)[0m  [1m[31mDELETE FROM "cart_items" WHERE "cart_items"."id" = 2 /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (1.3ms)[0m  [1m[35mCOMMIT /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mBEGIN /*application='ECommApi'*/[0m
+  [1m[36mCartItem Destroy (5.6ms)[0m  [1m[31mDELETE FROM "cart_items" WHERE "cart_items"."id" = 3 /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (1.3ms)[0m  [1m[35mCOMMIT /*application='ECommApi'*/[0m
+  [1m[36mOrderItem Load (0.6ms)[0m  [1m[34mSELECT "order_items".* FROM "order_items" /*application='ECommApi'*/[0m
+  [1m[36mOrder Load (1.6ms)[0m  [1m[34mSELECT "orders".* FROM "orders" /*application='ECommApi'*/[0m
+  [1m[36mProduct Load (0.9ms)[0m  [1m[34mSELECT "products".* FROM "products" /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mBEGIN /*application='ECommApi'*/[0m
+  [1m[36mOrderItem Exists? (4.1ms)[0m  [1m[34mSELECT 1 AS one FROM "order_items" WHERE "order_items"."product_id" = 1 LIMIT 1 /*application='ECommApi'*/[0m
+  [1m[36mCartItem Load (0.6ms)[0m  [1m[34mSELECT "cart_items".* FROM "cart_items" WHERE "cart_items"."product_id" = 1 /*application='ECommApi'*/[0m
+  [1m[36mProduct Destroy (1.6ms)[0m  [1m[31mDELETE FROM "products" WHERE "products"."id" = 1 /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (1.4ms)[0m  [1m[35mCOMMIT /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (0.6ms)[0m  [1m[35mBEGIN /*application='ECommApi'*/[0m
+  [1m[36mOrderItem Exists? (5.2ms)[0m  [1m[34mSELECT 1 AS one FROM "order_items" WHERE "order_items"."product_id" = 2 LIMIT 1 /*application='ECommApi'*/[0m
+  [1m[36mCartItem Load (0.3ms)[0m  [1m[34mSELECT "cart_items".* FROM "cart_items" WHERE "cart_items"."product_id" = 2 /*application='ECommApi'*/[0m
+  [1m[36mProduct Destroy (1.3ms)[0m  [1m[31mDELETE FROM "products" WHERE "products"."id" = 2 /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (1.1ms)[0m  [1m[35mCOMMIT /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN /*application='ECommApi'*/[0m
+  [1m[36mOrderItem Exists? (1.4ms)[0m  [1m[34mSELECT 1 AS one FROM "order_items" WHERE "order_items"."product_id" = 3 LIMIT 1 /*application='ECommApi'*/[0m
+  [1m[36mCartItem Load (0.4ms)[0m  [1m[34mSELECT "cart_items".* FROM "cart_items" WHERE "cart_items"."product_id" = 3 /*application='ECommApi'*/[0m
+  [1m[36mProduct Destroy (0.8ms)[0m  [1m[31mDELETE FROM "products" WHERE "products"."id" = 3 /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (1.9ms)[0m  [1m[35mCOMMIT /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN /*application='ECommApi'*/[0m
+  [1m[36mOrderItem Exists? (9.6ms)[0m  [1m[34mSELECT 1 AS one FROM "order_items" WHERE "order_items"."product_id" = 4 LIMIT 1 /*application='ECommApi'*/[0m
+  [1m[36mCartItem Load (0.3ms)[0m  [1m[34mSELECT "cart_items".* FROM "cart_items" WHERE "cart_items"."product_id" = 4 /*application='ECommApi'*/[0m
+  [1m[36mProduct Destroy (1.4ms)[0m  [1m[31mDELETE FROM "products" WHERE "products"."id" = 4 /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (1.5ms)[0m  [1m[35mCOMMIT /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mBEGIN /*application='ECommApi'*/[0m
+  [1m[36mOrderItem Exists? (3.4ms)[0m  [1m[34mSELECT 1 AS one FROM "order_items" WHERE "order_items"."product_id" = 5 LIMIT 1 /*application='ECommApi'*/[0m
+  [1m[36mCartItem Load (1.2ms)[0m  [1m[34mSELECT "cart_items".* FROM "cart_items" WHERE "cart_items"."product_id" = 5 /*application='ECommApi'*/[0m
+  [1m[36mProduct Destroy (0.6ms)[0m  [1m[31mDELETE FROM "products" WHERE "products"."id" = 5 /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (1.3ms)[0m  [1m[35mCOMMIT /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN /*application='ECommApi'*/[0m
+  [1m[36mOrderItem Exists? (2.1ms)[0m  [1m[34mSELECT 1 AS one FROM "order_items" WHERE "order_items"."product_id" = 6 LIMIT 1 /*application='ECommApi'*/[0m
+  [1m[36mCartItem Load (0.4ms)[0m  [1m[34mSELECT "cart_items".* FROM "cart_items" WHERE "cart_items"."product_id" = 6 /*application='ECommApi'*/[0m
+  [1m[36mProduct Destroy (0.9ms)[0m  [1m[31mDELETE FROM "products" WHERE "products"."id" = 6 /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (0.9ms)[0m  [1m[35mCOMMIT /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN /*application='ECommApi'*/[0m
+  [1m[36mOrderItem Exists? (2.0ms)[0m  [1m[34mSELECT 1 AS one FROM "order_items" WHERE "order_items"."product_id" = 7 LIMIT 1 /*application='ECommApi'*/[0m
+  [1m[36mCartItem Load (0.3ms)[0m  [1m[34mSELECT "cart_items".* FROM "cart_items" WHERE "cart_items"."product_id" = 7 /*application='ECommApi'*/[0m
+  [1m[36mProduct Destroy (1.4ms)[0m  [1m[31mDELETE FROM "products" WHERE "products"."id" = 7 /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (1.4ms)[0m  [1m[35mCOMMIT /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mBEGIN /*application='ECommApi'*/[0m
+  [1m[36mOrderItem Exists? (3.5ms)[0m  [1m[34mSELECT 1 AS one FROM "order_items" WHERE "order_items"."product_id" = 8 LIMIT 1 /*application='ECommApi'*/[0m
+  [1m[36mCartItem Load (0.4ms)[0m  [1m[34mSELECT "cart_items".* FROM "cart_items" WHERE "cart_items"."product_id" = 8 /*application='ECommApi'*/[0m
+  [1m[36mProduct Destroy (1.1ms)[0m  [1m[31mDELETE FROM "products" WHERE "products"."id" = 8 /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (0.9ms)[0m  [1m[35mCOMMIT /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[35mBEGIN /*application='ECommApi'*/[0m
+  [1m[36mOrderItem Exists? (2.2ms)[0m  [1m[34mSELECT 1 AS one FROM "order_items" WHERE "order_items"."product_id" = 9 LIMIT 1 /*application='ECommApi'*/[0m
+  [1m[36mCartItem Load (0.9ms)[0m  [1m[34mSELECT "cart_items".* FROM "cart_items" WHERE "cart_items"."product_id" = 9 /*application='ECommApi'*/[0m
+  [1m[36mProduct Destroy (0.8ms)[0m  [1m[31mDELETE FROM "products" WHERE "products"."id" = 9 /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (0.9ms)[0m  [1m[35mCOMMIT /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN /*application='ECommApi'*/[0m
+  [1m[36mOrderItem Exists? (24.5ms)[0m  [1m[34mSELECT 1 AS one FROM "order_items" WHERE "order_items"."product_id" = 10 LIMIT 1 /*application='ECommApi'*/[0m
+  [1m[36mCartItem Load (0.3ms)[0m  [1m[34mSELECT "cart_items".* FROM "cart_items" WHERE "cart_items"."product_id" = 10 /*application='ECommApi'*/[0m
+  [1m[36mProduct Destroy (0.4ms)[0m  [1m[31mDELETE FROM "products" WHERE "products"."id" = 10 /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (1.1ms)[0m  [1m[35mCOMMIT /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN /*application='ECommApi'*/[0m
+  [1m[36mOrderItem Exists? (2.2ms)[0m  [1m[34mSELECT 1 AS one FROM "order_items" WHERE "order_items"."product_id" = 11 LIMIT 1 /*application='ECommApi'*/[0m
+  [1m[36mCartItem Load (0.3ms)[0m  [1m[34mSELECT "cart_items".* FROM "cart_items" WHERE "cart_items"."product_id" = 11 /*application='ECommApi'*/[0m
+  [1m[36mProduct Destroy (0.5ms)[0m  [1m[31mDELETE FROM "products" WHERE "products"."id" = 11 /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (3.6ms)[0m  [1m[35mCOMMIT /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN /*application='ECommApi'*/[0m
+  [1m[36mOrderItem Exists? (2.6ms)[0m  [1m[34mSELECT 1 AS one FROM "order_items" WHERE "order_items"."product_id" = 12 LIMIT 1 /*application='ECommApi'*/[0m
+  [1m[36mCartItem Load (0.6ms)[0m  [1m[34mSELECT "cart_items".* FROM "cart_items" WHERE "cart_items"."product_id" = 12 /*application='ECommApi'*/[0m
+  [1m[36mProduct Destroy (0.5ms)[0m  [1m[31mDELETE FROM "products" WHERE "products"."id" = 12 /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (1.0ms)[0m  [1m[35mCOMMIT /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN /*application='ECommApi'*/[0m
+  [1m[36mOrderItem Exists? (2.9ms)[0m  [1m[34mSELECT 1 AS one FROM "order_items" WHERE "order_items"."product_id" = 13 LIMIT 1 /*application='ECommApi'*/[0m
+  [1m[36mCartItem Load (0.7ms)[0m  [1m[34mSELECT "cart_items".* FROM "cart_items" WHERE "cart_items"."product_id" = 13 /*application='ECommApi'*/[0m
+  [1m[36mProduct Destroy (0.8ms)[0m  [1m[31mDELETE FROM "products" WHERE "products"."id" = 13 /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (1.9ms)[0m  [1m[35mCOMMIT /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mBEGIN /*application='ECommApi'*/[0m
+  [1m[36mOrderItem Exists? (6.0ms)[0m  [1m[34mSELECT 1 AS one FROM "order_items" WHERE "order_items"."product_id" = 14 LIMIT 1 /*application='ECommApi'*/[0m
+  [1m[36mCartItem Load (0.4ms)[0m  [1m[34mSELECT "cart_items".* FROM "cart_items" WHERE "cart_items"."product_id" = 14 /*application='ECommApi'*/[0m
+  [1m[36mProduct Destroy (0.4ms)[0m  [1m[31mDELETE FROM "products" WHERE "products"."id" = 14 /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (3.2ms)[0m  [1m[35mCOMMIT /*application='ECommApi'*/[0m
+  [1m[36mCategory Load (0.8ms)[0m  [1m[34mSELECT "categories".* FROM "categories" /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN /*application='ECommApi'*/[0m
+  [1m[36mProduct Exists? (4.3ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE "products"."category_id" = 1 LIMIT 1 /*application='ECommApi'*/[0m
+  [1m[36mCategory Destroy (0.7ms)[0m  [1m[31mDELETE FROM "categories" WHERE "categories"."id" = 1 /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (2.5ms)[0m  [1m[35mCOMMIT /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (1.4ms)[0m  [1m[35mBEGIN /*application='ECommApi'*/[0m
+  [1m[36mProduct Exists? (5.3ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE "products"."category_id" = 2 LIMIT 1 /*application='ECommApi'*/[0m
+  [1m[36mCategory Destroy (0.4ms)[0m  [1m[31mDELETE FROM "categories" WHERE "categories"."id" = 2 /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (0.9ms)[0m  [1m[35mCOMMIT /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mBEGIN /*application='ECommApi'*/[0m
+  [1m[36mProduct Exists? (4.0ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE "products"."category_id" = 3 LIMIT 1 /*application='ECommApi'*/[0m
+  [1m[36mCategory Destroy (1.8ms)[0m  [1m[31mDELETE FROM "categories" WHERE "categories"."id" = 3 /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (1.1ms)[0m  [1m[35mCOMMIT /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN /*application='ECommApi'*/[0m
+  [1m[36mProduct Exists? (2.9ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE "products"."category_id" = 4 LIMIT 1 /*application='ECommApi'*/[0m
+  [1m[36mCategory Destroy (0.6ms)[0m  [1m[31mDELETE FROM "categories" WHERE "categories"."id" = 4 /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (1.5ms)[0m  [1m[35mCOMMIT /*application='ECommApi'*/[0m
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT "users".* FROM "users" /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN /*application='ECommApi'*/[0m
+  [1m[36mOrder Load (2.7ms)[0m  [1m[34mSELECT "orders".* FROM "orders" WHERE "orders"."user_id" = 1 /*application='ECommApi'*/[0m
+  [1m[36mCartItem Load (0.4ms)[0m  [1m[34mSELECT "cart_items".* FROM "cart_items" WHERE "cart_items"."user_id" = 1 /*application='ECommApi'*/[0m
+  [1m[36mUser Destroy (0.9ms)[0m  [1m[31mDELETE FROM "users" WHERE "users"."id" = 1 /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (5.4ms)[0m  [1m[35mCOMMIT /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN /*application='ECommApi'*/[0m
+  [1m[36mOrder Load (2.5ms)[0m  [1m[34mSELECT "orders".* FROM "orders" WHERE "orders"."user_id" = 2 /*application='ECommApi'*/[0m
+  [1m[36mCartItem Load (2.4ms)[0m  [1m[34mSELECT "cart_items".* FROM "cart_items" WHERE "cart_items"."user_id" = 2 /*application='ECommApi'*/[0m
+  [1m[36mUser Destroy (1.4ms)[0m  [1m[31mDELETE FROM "users" WHERE "users"."id" = 2 /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (3.7ms)[0m  [1m[35mCOMMIT /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mBEGIN /*application='ECommApi'*/[0m
+  [1m[36mCategory Exists? (3.6ms)[0m  [1m[34mSELECT 1 AS one FROM "categories" WHERE "categories"."name" = 'Electronics' LIMIT 1 /*application='ECommApi'*/[0m
+  [1m[36mCategory Create (0.5ms)[0m  [1m[32mINSERT INTO "categories" ("name", "description", "created_at", "updated_at") VALUES ('Electronics', 'Electronic devices and accessories', '2025-08-06 11:09:52.637000', '2025-08-06 11:09:52.637000') RETURNING "id" /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (1.1ms)[0m  [1m[35mCOMMIT /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN /*application='ECommApi'*/[0m
+  [1m[36mCategory Exists? (2.8ms)[0m  [1m[34mSELECT 1 AS one FROM "categories" WHERE "categories"."name" = 'Clothing' LIMIT 1 /*application='ECommApi'*/[0m
+  [1m[36mCategory Create (0.3ms)[0m  [1m[32mINSERT INTO "categories" ("name", "description", "created_at", "updated_at") VALUES ('Clothing', 'Apparel and fashion items', '2025-08-06 11:09:52.709331', '2025-08-06 11:09:52.709331') RETURNING "id" /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (3.6ms)[0m  [1m[35mCOMMIT /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN /*application='ECommApi'*/[0m
+  [1m[36mCategory Exists? (1.8ms)[0m  [1m[34mSELECT 1 AS one FROM "categories" WHERE "categories"."name" = 'Books' LIMIT 1 /*application='ECommApi'*/[0m
+  [1m[36mCategory Create (0.3ms)[0m  [1m[32mINSERT INTO "categories" ("name", "description", "created_at", "updated_at") VALUES ('Books', 'Books and reading materials', '2025-08-06 11:09:52.735928', '2025-08-06 11:09:52.735928') RETURNING "id" /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (1.6ms)[0m  [1m[35mCOMMIT /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (1.6ms)[0m  [1m[35mBEGIN /*application='ECommApi'*/[0m
+  [1m[36mCategory Exists? (4.3ms)[0m  [1m[34mSELECT 1 AS one FROM "categories" WHERE "categories"."name" = 'Home & Garden' LIMIT 1 /*application='ECommApi'*/[0m
+  [1m[36mCategory Create (0.4ms)[0m  [1m[32mINSERT INTO "categories" ("name", "description", "created_at", "updated_at") VALUES ('Home & Garden', 'Home improvement and garden supplies', '2025-08-06 11:09:52.748665', '2025-08-06 11:09:52.748665') RETURNING "id" /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (1.7ms)[0m  [1m[35mCOMMIT /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN /*application='ECommApi'*/[0m
+  [1m[36mUser Exists? (6.0ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = 'john@example.com' LIMIT 1 /*application='ECommApi'*/[0m
+  [1m[36mUser Create (0.4ms)[0m  [1m[32mINSERT INTO "users" ("email", "password_digest", "first_name", "last_name", "created_at", "updated_at") VALUES ('john@example.com', '$2a$12$Ow8DDzpz7qMoWJkd4BxO5ujgzi9J/oUmBf7JmNqT4LA.uXha4EUK2', 'John', 'Doe', '2025-08-06 11:09:53.066830', '2025-08-06 11:09:53.066830') RETURNING "id" /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (2.5ms)[0m  [1m[35mCOMMIT /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN /*application='ECommApi'*/[0m
+  [1m[36mUser Exists? (2.4ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = 'jane@example.com' LIMIT 1 /*application='ECommApi'*/[0m
+  [1m[36mUser Create (0.3ms)[0m  [1m[32mINSERT INTO "users" ("email", "password_digest", "first_name", "last_name", "created_at", "updated_at") VALUES ('jane@example.com', '$2a$12$XAldgDibBOX95CpC7R8OfOa5Tzh/GZTgfkBcqypziB2YlZuwGuhH2', 'Jane', 'Smith', '2025-08-06 11:09:53.318183', '2025-08-06 11:09:53.318183') RETURNING "id" /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (0.8ms)[0m  [1m[35mCOMMIT /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN /*application='ECommApi'*/[0m
+  [1m[36mProduct Create (7.7ms)[0m  [1m[32mINSERT INTO "products" ("name", "description", "price", "inventory_count", "category_id", "created_at", "updated_at") VALUES ('iPhone 15', 'Latest Apple smartphone with advanced features', 999.99, 50, 5, '2025-08-06 11:09:53.348956', '2025-08-06 11:09:53.348956') RETURNING "id" /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (0.8ms)[0m  [1m[35mCOMMIT /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN /*application='ECommApi'*/[0m
+  [1m[36mProduct Create (5.2ms)[0m  [1m[32mINSERT INTO "products" ("name", "description", "price", "inventory_count", "category_id", "created_at", "updated_at") VALUES ('Samsung Galaxy S24', 'Powerful Android smartphone', 899.99, 30, 5, '2025-08-06 11:09:53.385467', '2025-08-06 11:09:53.385467') RETURNING "id" /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (0.8ms)[0m  [1m[35mCOMMIT /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN /*application='ECommApi'*/[0m
+  [1m[36mProduct Create (4.1ms)[0m  [1m[32mINSERT INTO "products" ("name", "description", "price", "inventory_count", "category_id", "created_at", "updated_at") VALUES ('MacBook Pro', 'High-performance laptop for professionals', 1999.99, 15, 5, '2025-08-06 11:09:53.399991', '2025-08-06 11:09:53.399991') RETURNING "id" /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (1.3ms)[0m  [1m[35mCOMMIT /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN /*application='ECommApi'*/[0m
+  [1m[36mProduct Create (2.3ms)[0m  [1m[32mINSERT INTO "products" ("name", "description", "price", "inventory_count", "category_id", "created_at", "updated_at") VALUES ('Sony Headphones', 'Noise-canceling wireless headphones', 299.99, 100, 5, '2025-08-06 11:09:53.414538', '2025-08-06 11:09:53.414538') RETURNING "id" /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (4.4ms)[0m  [1m[35mCOMMIT /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (4.9ms)[0m  [1m[35mBEGIN /*application='ECommApi'*/[0m
+  [1m[36mProduct Create (10.0ms)[0m  [1m[32mINSERT INTO "products" ("name", "description", "price", "inventory_count", "category_id", "created_at", "updated_at") VALUES ('Denim Jeans', 'Classic blue denim jeans', 79.99, 200, 6, '2025-08-06 11:09:53.445041', '2025-08-06 11:09:53.445041') RETURNING "id" /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (1.1ms)[0m  [1m[35mCOMMIT /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mBEGIN /*application='ECommApi'*/[0m
+  [1m[36mProduct Create (6.5ms)[0m  [1m[32mINSERT INTO "products" ("name", "description", "price", "inventory_count", "category_id", "created_at", "updated_at") VALUES ('Cotton T-Shirt', 'Comfortable cotton t-shirt', 24.99, 150, 6, '2025-08-06 11:09:53.474623', '2025-08-06 11:09:53.474623') RETURNING "id" /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (0.8ms)[0m  [1m[35mCOMMIT /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN /*application='ECommApi'*/[0m
+  [1m[36mProduct Create (2.9ms)[0m  [1m[32mINSERT INTO "products" ("name", "description", "price", "inventory_count", "category_id", "created_at", "updated_at") VALUES ('Leather Jacket', 'Premium leather jacket', 199.99, 25, 6, '2025-08-06 11:09:53.491480', '2025-08-06 11:09:53.491480') RETURNING "id" /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (0.9ms)[0m  [1m[35mCOMMIT /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN /*application='ECommApi'*/[0m
+  [1m[36mProduct Create (2.8ms)[0m  [1m[32mINSERT INTO "products" ("name", "description", "price", "inventory_count", "category_id", "created_at", "updated_at") VALUES ('Running Shoes', 'Comfortable running shoes', 129.99, 80, 6, '2025-08-06 11:09:53.501703', '2025-08-06 11:09:53.501703') RETURNING "id" /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (0.8ms)[0m  [1m[35mCOMMIT /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN /*application='ECommApi'*/[0m
+  [1m[36mProduct Create (2.6ms)[0m  [1m[32mINSERT INTO "products" ("name", "description", "price", "inventory_count", "category_id", "created_at", "updated_at") VALUES ('The Great Gatsby', 'Classic American novel by F. Scott Fitzgerald', 12.99, 500, 7, '2025-08-06 11:09:53.511293', '2025-08-06 11:09:53.511293') RETURNING "id" /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (1.5ms)[0m  [1m[35mCOMMIT /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN /*application='ECommApi'*/[0m
+  [1m[36mProduct Create (8.9ms)[0m  [1m[32mINSERT INTO "products" ("name", "description", "price", "inventory_count", "category_id", "created_at", "updated_at") VALUES ('To Kill a Mockingbird', 'Pulitzer Prize-winning novel by Harper Lee', 14.99, 300, 7, '2025-08-06 11:09:53.532331', '2025-08-06 11:09:53.532331') RETURNING "id" /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (0.9ms)[0m  [1m[35mCOMMIT /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN /*application='ECommApi'*/[0m
+  [1m[36mProduct Create (2.8ms)[0m  [1m[32mINSERT INTO "products" ("name", "description", "price", "inventory_count", "category_id", "created_at", "updated_at") VALUES ('Programming Ruby', 'Comprehensive guide to Ruby programming', 49.99, 75, 7, '2025-08-06 11:09:53.548255', '2025-08-06 11:09:53.548255') RETURNING "id" /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (0.8ms)[0m  [1m[35mCOMMIT /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN /*application='ECommApi'*/[0m
+  [1m[36mProduct Create (2.8ms)[0m  [1m[32mINSERT INTO "products" ("name", "description", "price", "inventory_count", "category_id", "created_at", "updated_at") VALUES ('Garden Hose', '50ft expandable garden hose', 39.99, 60, 8, '2025-08-06 11:09:53.557949', '2025-08-06 11:09:53.557949') RETURNING "id" /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (1.1ms)[0m  [1m[35mCOMMIT /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN /*application='ECommApi'*/[0m
+  [1m[36mProduct Create (2.5ms)[0m  [1m[32mINSERT INTO "products" ("name", "description", "price", "inventory_count", "category_id", "created_at", "updated_at") VALUES ('Plant Pot Set', 'Set of 5 ceramic plant pots', 29.99, 40, 8, '2025-08-06 11:09:53.572239', '2025-08-06 11:09:53.572239') RETURNING "id" /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (0.9ms)[0m  [1m[35mCOMMIT /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN /*application='ECommApi'*/[0m
+  [1m[36mProduct Create (2.6ms)[0m  [1m[32mINSERT INTO "products" ("name", "description", "price", "inventory_count", "category_id", "created_at", "updated_at") VALUES ('LED Light Bulbs', 'Energy-efficient LED bulbs (4-pack)', 19.99, 200, 8, '2025-08-06 11:09:53.580417', '2025-08-06 11:09:53.580417') RETURNING "id" /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (0.7ms)[0m  [1m[35mCOMMIT /*application='ECommApi'*/[0m
+  [1m[36mProduct Load (0.4ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE "products"."name" = 'iPhone 15' LIMIT 1 /*application='ECommApi'*/[0m
+  [1m[36mProduct Load (0.4ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE "products"."name" = 'Denim Jeans' LIMIT 1 /*application='ECommApi'*/[0m
+  [1m[36mProduct Load (0.4ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE "products"."name" = 'Sony Headphones' LIMIT 1 /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (7.5ms)[0m  [1m[35mBEGIN /*application='ECommApi'*/[0m
+  [1m[36mCartItem Exists? (37.4ms)[0m  [1m[34mSELECT 1 AS one FROM "cart_items" WHERE "cart_items"."product_id" = 15 AND "cart_items"."user_id" = 3 LIMIT 1 /*application='ECommApi'*/[0m
+  [1m[36mCartItem Create (0.8ms)[0m  [1m[32mINSERT INTO "cart_items" ("user_id", "product_id", "quantity", "created_at", "updated_at") VALUES (3, 15, 1, '2025-08-06 11:09:53.697347', '2025-08-06 11:09:53.697347') RETURNING "id" /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (2.6ms)[0m  [1m[35mCOMMIT /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN /*application='ECommApi'*/[0m
+  [1m[36mCartItem Exists? (7.6ms)[0m  [1m[34mSELECT 1 AS one FROM "cart_items" WHERE "cart_items"."product_id" = 18 AND "cart_items"."user_id" = 3 LIMIT 1 /*application='ECommApi'*/[0m
+  [1m[36mCartItem Create (2.2ms)[0m  [1m[32mINSERT INTO "cart_items" ("user_id", "product_id", "quantity", "created_at", "updated_at") VALUES (3, 18, 2, '2025-08-06 11:09:53.767833', '2025-08-06 11:09:53.767833') RETURNING "id" /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (5.2ms)[0m  [1m[35mCOMMIT /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN /*application='ECommApi'*/[0m
+  [1m[36mCartItem Exists? (3.5ms)[0m  [1m[34mSELECT 1 AS one FROM "cart_items" WHERE "cart_items"."product_id" = 19 AND "cart_items"."user_id" = 4 LIMIT 1 /*application='ECommApi'*/[0m
+  [1m[36mCartItem Create (0.8ms)[0m  [1m[32mINSERT INTO "cart_items" ("user_id", "product_id", "quantity", "created_at", "updated_at") VALUES (4, 19, 1, '2025-08-06 11:09:53.797078', '2025-08-06 11:09:53.797078') RETURNING "id" /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (1.5ms)[0m  [1m[35mCOMMIT /*application='ECommApi'*/[0m
+  [1m[36mCategory Count (34.6ms)[0m  [1m[34mSELECT COUNT(*) FROM "categories" /*application='ECommApi'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.6ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='ECommApi'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.8ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = 'environment' ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1 /*application='ECommApi'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.4ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='ECommApi'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.3ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = 'environment' ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1 /*application='ECommApi'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.3ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='ECommApi'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.2ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = 'environment' ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1 /*application='ECommApi'*/[0m
+  [1m[35mSQL (0.2ms)[0m  [1m[35mSET search_path TO public /*application='ECommApi'*/[0m
+  [1m[35m (63.8ms)[0m  [1m[35mDROP DATABASE IF EXISTS "e_comm_api_development" /*application='ECommApi'*/[0m
+  [1m[35mSQL (2.4ms)[0m  [1m[35mSET search_path TO public /*application='ECommApi'*/[0m
+  [1m[35m (55.0ms)[0m  [1m[35mDROP DATABASE IF EXISTS "e_comm_api_test" /*application='ECommApi'*/[0m
+  [1m[35mSQL (0.1ms)[0m  [1m[35mSET search_path TO public /*application='ECommApi'*/[0m
+  [1m[35m (88.4ms)[0m  [1m[35mCREATE DATABASE "e_comm_api_development" ENCODING = 'unicode' /*application='ECommApi'*/[0m
+  [1m[35mSQL (0.1ms)[0m  [1m[35mSET search_path TO public /*application='ECommApi'*/[0m
+  [1m[35m (64.9ms)[0m  [1m[35mCREATE DATABASE "e_comm_api_test" ENCODING = 'unicode' /*application='ECommApi'*/[0m
+  [1m[35mSQL (14.5ms)[0m  [1m[35mCREATE EXTENSION IF NOT EXISTS "plpgsql" SCHEMA pg_catalog /*application='ECommApi'*/[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE IF EXISTS "cart_items" CASCADE /*application='ECommApi'*/[0m
+  [1m[35m (6.9ms)[0m  [1m[35mCREATE TABLE "cart_items" ("id" bigserial primary key, "user_id" bigint NOT NULL, "product_id" bigint NOT NULL, "quantity" integer DEFAULT 1 NOT NULL, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL) /*application='ECommApi'*/[0m
+  [1m[35m (5.4ms)[0m  [1m[35mCREATE INDEX "index_cart_items_on_product_id" ON "cart_items" ("product_id") /*application='ECommApi'*/[0m
+  [1m[35m (3.0ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_cart_items_on_user_id_and_product_id" ON "cart_items" ("user_id", "product_id") /*application='ECommApi'*/[0m
+  [1m[35m (2.9ms)[0m  [1m[35mCREATE INDEX "index_cart_items_on_user_id" ON "cart_items" ("user_id") /*application='ECommApi'*/[0m
+  [1m[35m (0.3ms)[0m  [1m[35mDROP TABLE IF EXISTS "categories" CASCADE /*application='ECommApi'*/[0m
+  [1m[35m (6.3ms)[0m  [1m[35mCREATE TABLE "categories" ("id" bigserial primary key, "name" character varying NOT NULL, "description" text, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL) /*application='ECommApi'*/[0m
+  [1m[35m (2.7ms)[0m  [1m[35mCREATE INDEX "index_categories_on_name" ON "categories" ("name") /*application='ECommApi'*/[0m
+  [1m[35m (0.2ms)[0m  [1m[35mDROP TABLE IF EXISTS "order_items" CASCADE /*application='ECommApi'*/[0m
+  [1m[35m (3.1ms)[0m  [1m[35mCREATE TABLE "order_items" ("id" bigserial primary key, "order_id" bigint NOT NULL, "product_id" bigint NOT NULL, "quantity" integer NOT NULL, "unit_price" decimal(10,2) NOT NULL, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL) /*application='ECommApi'*/[0m
+  [1m[35m (2.6ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_order_items_on_order_id_and_product_id" ON "order_items" ("order_id", "product_id") /*application='ECommApi'*/[0m
+  [1m[35m (2.4ms)[0m  [1m[35mCREATE INDEX "index_order_items_on_order_id" ON "order_items" ("order_id") /*application='ECommApi'*/[0m
+  [1m[35m (2.6ms)[0m  [1m[35mCREATE INDEX "index_order_items_on_product_id" ON "order_items" ("product_id") /*application='ECommApi'*/[0m
+  [1m[35m (0.2ms)[0m  [1m[35mDROP TABLE IF EXISTS "orders" CASCADE /*application='ECommApi'*/[0m
+  [1m[35m (4.8ms)[0m  [1m[35mCREATE TABLE "orders" ("id" bigserial primary key, "user_id" bigint NOT NULL, "total" decimal(10,2) NOT NULL, "status" character varying DEFAULT 'pending', "order_date" timestamp(6) NOT NULL, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL) /*application='ECommApi'*/[0m
+  [1m[35m (2.6ms)[0m  [1m[35mCREATE INDEX "index_orders_on_order_date" ON "orders" ("order_date") /*application='ECommApi'*/[0m
+  [1m[35m (2.9ms)[0m  [1m[35mCREATE INDEX "index_orders_on_status" ON "orders" ("status") /*application='ECommApi'*/[0m
+  [1m[35m (3.0ms)[0m  [1m[35mCREATE INDEX "index_orders_on_user_id" ON "orders" ("user_id") /*application='ECommApi'*/[0m
+  [1m[35m (0.2ms)[0m  [1m[35mDROP TABLE IF EXISTS "products" CASCADE /*application='ECommApi'*/[0m
+  [1m[35m (5.6ms)[0m  [1m[35mCREATE TABLE "products" ("id" bigserial primary key, "name" character varying NOT NULL, "description" text, "price" decimal(10,2) NOT NULL, "inventory_count" integer DEFAULT 0, "category_id" bigint NOT NULL, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL) /*application='ECommApi'*/[0m
+  [1m[35m (2.6ms)[0m  [1m[35mCREATE INDEX "index_products_on_category_id" ON "products" ("category_id") /*application='ECommApi'*/[0m
+  [1m[35m (2.3ms)[0m  [1m[35mCREATE INDEX "index_products_on_name" ON "products" ("name") /*application='ECommApi'*/[0m
+  [1m[35m (2.6ms)[0m  [1m[35mCREATE INDEX "index_products_on_price" ON "products" ("price") /*application='ECommApi'*/[0m
+  [1m[35m (0.2ms)[0m  [1m[35mDROP TABLE IF EXISTS "users" CASCADE /*application='ECommApi'*/[0m
+  [1m[35m (4.5ms)[0m  [1m[35mCREATE TABLE "users" ("id" bigserial primary key, "email" character varying NOT NULL, "password_digest" character varying NOT NULL, "first_name" character varying, "last_name" character varying, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL) /*application='ECommApi'*/[0m
+  [1m[35m (2.5ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_users_on_email" ON "users" ("email") /*application='ECommApi'*/[0m
+  [1m[35m (2.8ms)[0m  [1m[35mALTER TABLE "cart_items" ADD CONSTRAINT "fk_rails_681a180e84"
+FOREIGN KEY ("product_id")
+  REFERENCES "products" ("id")
+ /*application='ECommApi'*/[0m
+  [1m[35m (1.4ms)[0m  [1m[35mALTER TABLE "cart_items" ADD CONSTRAINT "fk_rails_fcb2cbf0bc"
+FOREIGN KEY ("user_id")
+  REFERENCES "users" ("id")
+ /*application='ECommApi'*/[0m
+  [1m[35m (2.1ms)[0m  [1m[35mALTER TABLE "order_items" ADD CONSTRAINT "fk_rails_e3cb28f071"
+FOREIGN KEY ("order_id")
+  REFERENCES "orders" ("id")
+ /*application='ECommApi'*/[0m
+  [1m[35m (1.5ms)[0m  [1m[35mALTER TABLE "order_items" ADD CONSTRAINT "fk_rails_f1a29ddd47"
+FOREIGN KEY ("product_id")
+  REFERENCES "products" ("id")
+ /*application='ECommApi'*/[0m
+  [1m[35m (1.7ms)[0m  [1m[35mALTER TABLE "orders" ADD CONSTRAINT "fk_rails_f868b47f6a"
+FOREIGN KEY ("user_id")
+  REFERENCES "users" ("id")
+ /*application='ECommApi'*/[0m
+  [1m[35m (2.6ms)[0m  [1m[35mALTER TABLE "products" ADD CONSTRAINT "fk_rails_fb915499a4"
+FOREIGN KEY ("category_id")
+  REFERENCES "categories" ("id")
+ /*application='ECommApi'*/[0m
+  [1m[35m (5.8ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" character varying NOT NULL PRIMARY KEY) /*application='ECommApi'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (1.8ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='ECommApi'*/[0m
+  [1m[35m (1.3ms)[0m  [1m[32mINSERT INTO "schema_migrations" (version) VALUES (20250806105552) /*application='ECommApi'*/[0m
+  [1m[35m (1.5ms)[0m  [1m[32mINSERT INTO "schema_migrations" (version) VALUES
+(20250806105536),
+(20250806105443),
+(20250806105433),
+(20250806105424),
+(20250806105230); /*application='ECommApi'*/[0m
+  [1m[35m (7.7ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" character varying NOT NULL PRIMARY KEY, "value" character varying, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL) /*application='ECommApi'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Load (1.8ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = 'environment' ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1 /*application='ECommApi'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Create (1.3ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ('environment', 'development', '2025-08-06 11:11:11.385810', '2025-08-06 11:11:11.385816') RETURNING "key" /*application='ECommApi'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.5ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = 'environment' ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1 /*application='ECommApi'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Load (1.6ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = 'schema_sha1' ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1 /*application='ECommApi'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Create (1.2ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ('schema_sha1', '33ca234b35d399579bf749a18270f1bc45f0659d', '2025-08-06 11:11:11.410814', '2025-08-06 11:11:11.410820') RETURNING "key" /*application='ECommApi'*/[0m
+  [1m[35mSQL (32.5ms)[0m  [1m[35mCREATE EXTENSION IF NOT EXISTS "plpgsql" SCHEMA pg_catalog /*application='ECommApi'*/[0m
+  [1m[35m (0.2ms)[0m  [1m[35mDROP TABLE IF EXISTS "cart_items" CASCADE /*application='ECommApi'*/[0m
+  [1m[35m (5.8ms)[0m  [1m[35mCREATE TABLE "cart_items" ("id" bigserial primary key, "user_id" bigint NOT NULL, "product_id" bigint NOT NULL, "quantity" integer DEFAULT 1 NOT NULL, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL) /*application='ECommApi'*/[0m
+  [1m[35m (3.2ms)[0m  [1m[35mCREATE INDEX "index_cart_items_on_product_id" ON "cart_items" ("product_id") /*application='ECommApi'*/[0m
+  [1m[35m (2.9ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_cart_items_on_user_id_and_product_id" ON "cart_items" ("user_id", "product_id") /*application='ECommApi'*/[0m
+  [1m[35m (3.9ms)[0m  [1m[35mCREATE INDEX "index_cart_items_on_user_id" ON "cart_items" ("user_id") /*application='ECommApi'*/[0m
+  [1m[35m (0.2ms)[0m  [1m[35mDROP TABLE IF EXISTS "categories" CASCADE /*application='ECommApi'*/[0m
+  [1m[35m (7.2ms)[0m  [1m[35mCREATE TABLE "categories" ("id" bigserial primary key, "name" character varying NOT NULL, "description" text, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL) /*application='ECommApi'*/[0m
+  [1m[35m (4.4ms)[0m  [1m[35mCREATE INDEX "index_categories_on_name" ON "categories" ("name") /*application='ECommApi'*/[0m
+  [1m[35m (0.2ms)[0m  [1m[35mDROP TABLE IF EXISTS "order_items" CASCADE /*application='ECommApi'*/[0m
+  [1m[35m (6.0ms)[0m  [1m[35mCREATE TABLE "order_items" ("id" bigserial primary key, "order_id" bigint NOT NULL, "product_id" bigint NOT NULL, "quantity" integer NOT NULL, "unit_price" decimal(10,2) NOT NULL, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL) /*application='ECommApi'*/[0m
+  [1m[35m (4.8ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_order_items_on_order_id_and_product_id" ON "order_items" ("order_id", "product_id") /*application='ECommApi'*/[0m
+  [1m[35m (2.6ms)[0m  [1m[35mCREATE INDEX "index_order_items_on_order_id" ON "order_items" ("order_id") /*application='ECommApi'*/[0m
+  [1m[35m (3.4ms)[0m  [1m[35mCREATE INDEX "index_order_items_on_product_id" ON "order_items" ("product_id") /*application='ECommApi'*/[0m
+  [1m[35m (0.2ms)[0m  [1m[35mDROP TABLE IF EXISTS "orders" CASCADE /*application='ECommApi'*/[0m
+  [1m[35m (6.5ms)[0m  [1m[35mCREATE TABLE "orders" ("id" bigserial primary key, "user_id" bigint NOT NULL, "total" decimal(10,2) NOT NULL, "status" character varying DEFAULT 'pending', "order_date" timestamp(6) NOT NULL, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL) /*application='ECommApi'*/[0m
+  [1m[35m (3.5ms)[0m  [1m[35mCREATE INDEX "index_orders_on_order_date" ON "orders" ("order_date") /*application='ECommApi'*/[0m
+  [1m[35m (2.7ms)[0m  [1m[35mCREATE INDEX "index_orders_on_status" ON "orders" ("status") /*application='ECommApi'*/[0m
+  [1m[35m (3.1ms)[0m  [1m[35mCREATE INDEX "index_orders_on_user_id" ON "orders" ("user_id") /*application='ECommApi'*/[0m
+  [1m[35m (0.3ms)[0m  [1m[35mDROP TABLE IF EXISTS "products" CASCADE /*application='ECommApi'*/[0m
+  [1m[35m (6.4ms)[0m  [1m[35mCREATE TABLE "products" ("id" bigserial primary key, "name" character varying NOT NULL, "description" text, "price" decimal(10,2) NOT NULL, "inventory_count" integer DEFAULT 0, "category_id" bigint NOT NULL, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL) /*application='ECommApi'*/[0m
+  [1m[35m (2.9ms)[0m  [1m[35mCREATE INDEX "index_products_on_category_id" ON "products" ("category_id") /*application='ECommApi'*/[0m
+  [1m[35m (5.0ms)[0m  [1m[35mCREATE INDEX "index_products_on_name" ON "products" ("name") /*application='ECommApi'*/[0m
+  [1m[35m (6.8ms)[0m  [1m[35mCREATE INDEX "index_products_on_price" ON "products" ("price") /*application='ECommApi'*/[0m
+  [1m[35m (0.5ms)[0m  [1m[35mDROP TABLE IF EXISTS "users" CASCADE /*application='ECommApi'*/[0m
+  [1m[35m (13.7ms)[0m  [1m[35mCREATE TABLE "users" ("id" bigserial primary key, "email" character varying NOT NULL, "password_digest" character varying NOT NULL, "first_name" character varying, "last_name" character varying, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL) /*application='ECommApi'*/[0m
+  [1m[35m (6.1ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_users_on_email" ON "users" ("email") /*application='ECommApi'*/[0m
+  [1m[35m (7.5ms)[0m  [1m[35mALTER TABLE "cart_items" ADD CONSTRAINT "fk_rails_681a180e84"
+FOREIGN KEY ("product_id")
+  REFERENCES "products" ("id")
+ /*application='ECommApi'*/[0m
+  [1m[35m (3.7ms)[0m  [1m[35mALTER TABLE "cart_items" ADD CONSTRAINT "fk_rails_fcb2cbf0bc"
+FOREIGN KEY ("user_id")
+  REFERENCES "users" ("id")
+ /*application='ECommApi'*/[0m
+  [1m[35m (3.3ms)[0m  [1m[35mALTER TABLE "order_items" ADD CONSTRAINT "fk_rails_e3cb28f071"
+FOREIGN KEY ("order_id")
+  REFERENCES "orders" ("id")
+ /*application='ECommApi'*/[0m
+  [1m[35m (2.1ms)[0m  [1m[35mALTER TABLE "order_items" ADD CONSTRAINT "fk_rails_f1a29ddd47"
+FOREIGN KEY ("product_id")
+  REFERENCES "products" ("id")
+ /*application='ECommApi'*/[0m
+  [1m[35m (3.2ms)[0m  [1m[35mALTER TABLE "orders" ADD CONSTRAINT "fk_rails_f868b47f6a"
+FOREIGN KEY ("user_id")
+  REFERENCES "users" ("id")
+ /*application='ECommApi'*/[0m
+  [1m[35m (1.6ms)[0m  [1m[35mALTER TABLE "products" ADD CONSTRAINT "fk_rails_fb915499a4"
+FOREIGN KEY ("category_id")
+  REFERENCES "categories" ("id")
+ /*application='ECommApi'*/[0m
+  [1m[35m (6.3ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" character varying NOT NULL PRIMARY KEY) /*application='ECommApi'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.5ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='ECommApi'*/[0m
+  [1m[35m (2.0ms)[0m  [1m[32mINSERT INTO "schema_migrations" (version) VALUES (20250806105552) /*application='ECommApi'*/[0m
+  [1m[35m (2.2ms)[0m  [1m[32mINSERT INTO "schema_migrations" (version) VALUES
+(20250806105536),
+(20250806105443),
+(20250806105433),
+(20250806105424),
+(20250806105230); /*application='ECommApi'*/[0m
+  [1m[35m (8.0ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" character varying NOT NULL PRIMARY KEY, "value" character varying, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL) /*application='ECommApi'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Load (1.2ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = 'environment' ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1 /*application='ECommApi'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Create (1.7ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ('environment', 'development', '2025-08-06 11:11:11.729822', '2025-08-06 11:11:11.729828') RETURNING "key" /*application='ECommApi'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Load (2.2ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = 'environment' ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1 /*application='ECommApi'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Update (1.6ms)[0m  [1m[33mUPDATE "ar_internal_metadata" SET "value" = 'test', "updated_at" = '2025-08-06 11:11:11.746436' WHERE "ar_internal_metadata"."key" = 'environment' /*application='ECommApi'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.4ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = 'schema_sha1' ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1 /*application='ECommApi'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Create (2.7ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ('schema_sha1', '33ca234b35d399579bf749a18270f1bc45f0659d', '2025-08-06 11:11:11.754529', '2025-08-06 11:11:11.754532') RETURNING "key" /*application='ECommApi'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.9ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='ECommApi'*/[0m
+  [1m[36mCartItem Load (0.8ms)[0m  [1m[34mSELECT "cart_items".* FROM "cart_items" /*application='ECommApi'*/[0m
+  [1m[36mOrderItem Load (1.1ms)[0m  [1m[34mSELECT "order_items".* FROM "order_items" /*application='ECommApi'*/[0m
+  [1m[36mOrder Load (2.1ms)[0m  [1m[34mSELECT "orders".* FROM "orders" /*application='ECommApi'*/[0m
+  [1m[36mProduct Load (2.1ms)[0m  [1m[34mSELECT "products".* FROM "products" /*application='ECommApi'*/[0m
+  [1m[36mCategory Load (2.2ms)[0m  [1m[34mSELECT "categories".* FROM "categories" /*application='ECommApi'*/[0m
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT "users".* FROM "users" /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mBEGIN /*application='ECommApi'*/[0m
+  [1m[36mCategory Exists? (8.7ms)[0m  [1m[34mSELECT 1 AS one FROM "categories" WHERE "categories"."name" = 'Electronics' LIMIT 1 /*application='ECommApi'*/[0m
+  [1m[36mCategory Create (0.8ms)[0m  [1m[32mINSERT INTO "categories" ("name", "description", "created_at", "updated_at") VALUES ('Electronics', 'Electronic devices and accessories', '2025-08-06 11:11:12.342432', '2025-08-06 11:11:12.342432') RETURNING "id" /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (0.9ms)[0m  [1m[35mCOMMIT /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN /*application='ECommApi'*/[0m
+  [1m[36mCategory Exists? (1.3ms)[0m  [1m[34mSELECT 1 AS one FROM "categories" WHERE "categories"."name" = 'Clothing' LIMIT 1 /*application='ECommApi'*/[0m
+  [1m[36mCategory Create (0.3ms)[0m  [1m[32mINSERT INTO "categories" ("name", "description", "created_at", "updated_at") VALUES ('Clothing', 'Apparel and fashion items', '2025-08-06 11:11:12.387841', '2025-08-06 11:11:12.387841') RETURNING "id" /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (1.2ms)[0m  [1m[35mCOMMIT /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN /*application='ECommApi'*/[0m
+  [1m[36mCategory Exists? (2.0ms)[0m  [1m[34mSELECT 1 AS one FROM "categories" WHERE "categories"."name" = 'Books' LIMIT 1 /*application='ECommApi'*/[0m
+  [1m[36mCategory Create (0.3ms)[0m  [1m[32mINSERT INTO "categories" ("name", "description", "created_at", "updated_at") VALUES ('Books', 'Books and reading materials', '2025-08-06 11:11:12.404512', '2025-08-06 11:11:12.404512') RETURNING "id" /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (1.1ms)[0m  [1m[35mCOMMIT /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN /*application='ECommApi'*/[0m
+  [1m[36mCategory Exists? (3.4ms)[0m  [1m[34mSELECT 1 AS one FROM "categories" WHERE "categories"."name" = 'Home & Garden' LIMIT 1 /*application='ECommApi'*/[0m
+  [1m[36mCategory Create (0.4ms)[0m  [1m[32mINSERT INTO "categories" ("name", "description", "created_at", "updated_at") VALUES ('Home & Garden', 'Home improvement and garden supplies', '2025-08-06 11:11:12.417607', '2025-08-06 11:11:12.417607') RETURNING "id" /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (0.8ms)[0m  [1m[35mCOMMIT /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN /*application='ECommApi'*/[0m
+  [1m[36mUser Exists? (1.4ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = 'john@example.com' LIMIT 1 /*application='ECommApi'*/[0m
+  [1m[36mUser Create (0.4ms)[0m  [1m[32mINSERT INTO "users" ("email", "password_digest", "first_name", "last_name", "created_at", "updated_at") VALUES ('john@example.com', '$2a$12$Poc8hD20ZRAtT0.FRtz9muRNpq0yviieqdCmBDGf.Oz1X8PIckpxy', 'John', 'Doe', '2025-08-06 11:11:12.725447', '2025-08-06 11:11:12.725447') RETURNING "id" /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (2.5ms)[0m  [1m[35mCOMMIT /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN /*application='ECommApi'*/[0m
+  [1m[36mUser Exists? (1.2ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = 'jane@example.com' LIMIT 1 /*application='ECommApi'*/[0m
+  [1m[36mUser Create (0.3ms)[0m  [1m[32mINSERT INTO "users" ("email", "password_digest", "first_name", "last_name", "created_at", "updated_at") VALUES ('jane@example.com', '$2a$12$qlrG1B92FTY44XXSJVBVZeTt9RmOSC1fINBzet7KMyQYYrpdij7qK', 'Jane', 'Smith', '2025-08-06 11:11:12.963250', '2025-08-06 11:11:12.963250') RETURNING "id" /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (2.4ms)[0m  [1m[35mCOMMIT /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN /*application='ECommApi'*/[0m
+  [1m[36mProduct Create (3.3ms)[0m  [1m[32mINSERT INTO "products" ("name", "description", "price", "inventory_count", "category_id", "created_at", "updated_at") VALUES ('iPhone 15', 'Latest Apple smartphone with advanced features', 999.99, 50, 1, '2025-08-06 11:11:13.006517', '2025-08-06 11:11:13.006517') RETURNING "id" /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (1.0ms)[0m  [1m[35mCOMMIT /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN /*application='ECommApi'*/[0m
+  [1m[36mProduct Create (1.7ms)[0m  [1m[32mINSERT INTO "products" ("name", "description", "price", "inventory_count", "category_id", "created_at", "updated_at") VALUES ('Samsung Galaxy S24', 'Powerful Android smartphone', 899.99, 30, 1, '2025-08-06 11:11:13.026866', '2025-08-06 11:11:13.026866') RETURNING "id" /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (0.7ms)[0m  [1m[35mCOMMIT /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN /*application='ECommApi'*/[0m
+  [1m[36mProduct Create (1.5ms)[0m  [1m[32mINSERT INTO "products" ("name", "description", "price", "inventory_count", "category_id", "created_at", "updated_at") VALUES ('MacBook Pro', 'High-performance laptop for professionals', 1999.99, 15, 1, '2025-08-06 11:11:13.042080', '2025-08-06 11:11:13.042080') RETURNING "id" /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (0.9ms)[0m  [1m[35mCOMMIT /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN /*application='ECommApi'*/[0m
+  [1m[36mProduct Create (1.7ms)[0m  [1m[32mINSERT INTO "products" ("name", "description", "price", "inventory_count", "category_id", "created_at", "updated_at") VALUES ('Sony Headphones', 'Noise-canceling wireless headphones', 299.99, 100, 1, '2025-08-06 11:11:13.049696', '2025-08-06 11:11:13.049696') RETURNING "id" /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (0.7ms)[0m  [1m[35mCOMMIT /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN /*application='ECommApi'*/[0m
+  [1m[36mProduct Create (1.8ms)[0m  [1m[32mINSERT INTO "products" ("name", "description", "price", "inventory_count", "category_id", "created_at", "updated_at") VALUES ('Denim Jeans', 'Classic blue denim jeans', 79.99, 200, 2, '2025-08-06 11:11:13.055998', '2025-08-06 11:11:13.055998') RETURNING "id" /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (0.8ms)[0m  [1m[35mCOMMIT /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN /*application='ECommApi'*/[0m
+  [1m[36mProduct Create (1.9ms)[0m  [1m[32mINSERT INTO "products" ("name", "description", "price", "inventory_count", "category_id", "created_at", "updated_at") VALUES ('Cotton T-Shirt', 'Comfortable cotton t-shirt', 24.99, 150, 2, '2025-08-06 11:11:13.062611', '2025-08-06 11:11:13.062611') RETURNING "id" /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (0.9ms)[0m  [1m[35mCOMMIT /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN /*application='ECommApi'*/[0m
+  [1m[36mProduct Create (1.3ms)[0m  [1m[32mINSERT INTO "products" ("name", "description", "price", "inventory_count", "category_id", "created_at", "updated_at") VALUES ('Leather Jacket', 'Premium leather jacket', 199.99, 25, 2, '2025-08-06 11:11:13.068242', '2025-08-06 11:11:13.068242') RETURNING "id" /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (0.7ms)[0m  [1m[35mCOMMIT /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN /*application='ECommApi'*/[0m
+  [1m[36mProduct Create (1.6ms)[0m  [1m[32mINSERT INTO "products" ("name", "description", "price", "inventory_count", "category_id", "created_at", "updated_at") VALUES ('Running Shoes', 'Comfortable running shoes', 129.99, 80, 2, '2025-08-06 11:11:13.072964', '2025-08-06 11:11:13.072964') RETURNING "id" /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (0.8ms)[0m  [1m[35mCOMMIT /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN /*application='ECommApi'*/[0m
+  [1m[36mProduct Create (1.4ms)[0m  [1m[32mINSERT INTO "products" ("name", "description", "price", "inventory_count", "category_id", "created_at", "updated_at") VALUES ('The Great Gatsby', 'Classic American novel by F. Scott Fitzgerald', 12.99, 500, 3, '2025-08-06 11:11:13.084854', '2025-08-06 11:11:13.084854') RETURNING "id" /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (0.7ms)[0m  [1m[35mCOMMIT /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN /*application='ECommApi'*/[0m
+  [1m[36mProduct Create (1.2ms)[0m  [1m[32mINSERT INTO "products" ("name", "description", "price", "inventory_count", "category_id", "created_at", "updated_at") VALUES ('To Kill a Mockingbird', 'Pulitzer Prize-winning novel by Harper Lee', 14.99, 300, 3, '2025-08-06 11:11:13.095208', '2025-08-06 11:11:13.095208') RETURNING "id" /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (0.7ms)[0m  [1m[35mCOMMIT /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN /*application='ECommApi'*/[0m
+  [1m[36mProduct Create (1.4ms)[0m  [1m[32mINSERT INTO "products" ("name", "description", "price", "inventory_count", "category_id", "created_at", "updated_at") VALUES ('Programming Ruby', 'Comprehensive guide to Ruby programming', 49.99, 75, 3, '2025-08-06 11:11:13.101420', '2025-08-06 11:11:13.101420') RETURNING "id" /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (0.7ms)[0m  [1m[35mCOMMIT /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN /*application='ECommApi'*/[0m
+  [1m[36mProduct Create (2.1ms)[0m  [1m[32mINSERT INTO "products" ("name", "description", "price", "inventory_count", "category_id", "created_at", "updated_at") VALUES ('Garden Hose', '50ft expandable garden hose', 39.99, 60, 4, '2025-08-06 11:11:13.107368', '2025-08-06 11:11:13.107368') RETURNING "id" /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (0.6ms)[0m  [1m[35mCOMMIT /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN /*application='ECommApi'*/[0m
+  [1m[36mProduct Create (1.9ms)[0m  [1m[32mINSERT INTO "products" ("name", "description", "price", "inventory_count", "category_id", "created_at", "updated_at") VALUES ('Plant Pot Set', 'Set of 5 ceramic plant pots', 29.99, 40, 4, '2025-08-06 11:11:13.115891', '2025-08-06 11:11:13.115891') RETURNING "id" /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (0.9ms)[0m  [1m[35mCOMMIT /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN /*application='ECommApi'*/[0m
+  [1m[36mProduct Create (5.2ms)[0m  [1m[32mINSERT INTO "products" ("name", "description", "price", "inventory_count", "category_id", "created_at", "updated_at") VALUES ('LED Light Bulbs', 'Energy-efficient LED bulbs (4-pack)', 19.99, 200, 4, '2025-08-06 11:11:13.120933', '2025-08-06 11:11:13.120933') RETURNING "id" /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (0.7ms)[0m  [1m[35mCOMMIT /*application='ECommApi'*/[0m
+  [1m[36mProduct Load (0.5ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE "products"."name" = 'iPhone 15' LIMIT 1 /*application='ECommApi'*/[0m
+  [1m[36mProduct Load (0.3ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE "products"."name" = 'Denim Jeans' LIMIT 1 /*application='ECommApi'*/[0m
+  [1m[36mProduct Load (0.3ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE "products"."name" = 'Sony Headphones' LIMIT 1 /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (5.7ms)[0m  [1m[35mBEGIN /*application='ECommApi'*/[0m
+  [1m[36mCartItem Exists? (12.2ms)[0m  [1m[34mSELECT 1 AS one FROM "cart_items" WHERE "cart_items"."product_id" = 1 AND "cart_items"."user_id" = 1 LIMIT 1 /*application='ECommApi'*/[0m
+  [1m[36mCartItem Create (3.3ms)[0m  [1m[32mINSERT INTO "cart_items" ("user_id", "product_id", "quantity", "created_at", "updated_at") VALUES (1, 1, 1, '2025-08-06 11:11:13.205573', '2025-08-06 11:11:13.205573') RETURNING "id" /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (3.4ms)[0m  [1m[35mCOMMIT /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN /*application='ECommApi'*/[0m
+  [1m[36mCartItem Exists? (8.4ms)[0m  [1m[34mSELECT 1 AS one FROM "cart_items" WHERE "cart_items"."product_id" = 4 AND "cart_items"."user_id" = 1 LIMIT 1 /*application='ECommApi'*/[0m
+  [1m[36mCartItem Create (6.2ms)[0m  [1m[32mINSERT INTO "cart_items" ("user_id", "product_id", "quantity", "created_at", "updated_at") VALUES (1, 4, 2, '2025-08-06 11:11:13.271955', '2025-08-06 11:11:13.271955') RETURNING "id" /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (4.6ms)[0m  [1m[35mCOMMIT /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN /*application='ECommApi'*/[0m
+  [1m[36mCartItem Exists? (5.6ms)[0m  [1m[34mSELECT 1 AS one FROM "cart_items" WHERE "cart_items"."product_id" = 5 AND "cart_items"."user_id" = 2 LIMIT 1 /*application='ECommApi'*/[0m
+  [1m[36mCartItem Create (0.8ms)[0m  [1m[32mINSERT INTO "cart_items" ("user_id", "product_id", "quantity", "created_at", "updated_at") VALUES (2, 5, 1, '2025-08-06 11:11:13.313865', '2025-08-06 11:11:13.313865') RETURNING "id" /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (1.9ms)[0m  [1m[35mCOMMIT /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN /*application='ECommApi'*/[0m
+  ↳ app/models/order.rb:27:in `calculate_total'
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[31mROLLBACK /*application='ECommApi'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (1.3ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='ECommApi'*/[0m
+  [1m[36mCartItem Load (0.7ms)[0m  [1m[34mSELECT "cart_items".* FROM "cart_items" /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN /*application='ECommApi'*/[0m
+  [1m[36mCartItem Destroy (2.8ms)[0m  [1m[31mDELETE FROM "cart_items" WHERE "cart_items"."id" = 1 /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (0.7ms)[0m  [1m[35mCOMMIT /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN /*application='ECommApi'*/[0m
+  [1m[36mCartItem Destroy (1.7ms)[0m  [1m[31mDELETE FROM "cart_items" WHERE "cart_items"."id" = 2 /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (0.9ms)[0m  [1m[35mCOMMIT /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mBEGIN /*application='ECommApi'*/[0m
+  [1m[36mCartItem Destroy (4.7ms)[0m  [1m[31mDELETE FROM "cart_items" WHERE "cart_items"."id" = 3 /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (1.1ms)[0m  [1m[35mCOMMIT /*application='ECommApi'*/[0m
+  [1m[36mOrderItem Load (0.4ms)[0m  [1m[34mSELECT "order_items".* FROM "order_items" /*application='ECommApi'*/[0m
+  [1m[36mOrder Load (0.5ms)[0m  [1m[34mSELECT "orders".* FROM "orders" /*application='ECommApi'*/[0m
+  [1m[36mProduct Load (0.5ms)[0m  [1m[34mSELECT "products".* FROM "products" /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN /*application='ECommApi'*/[0m
+  [1m[36mOrderItem Exists? (1.2ms)[0m  [1m[34mSELECT 1 AS one FROM "order_items" WHERE "order_items"."product_id" = 1 LIMIT 1 /*application='ECommApi'*/[0m
+  [1m[36mCartItem Load (0.2ms)[0m  [1m[34mSELECT "cart_items".* FROM "cart_items" WHERE "cart_items"."product_id" = 1 /*application='ECommApi'*/[0m
+  [1m[36mProduct Destroy (0.8ms)[0m  [1m[31mDELETE FROM "products" WHERE "products"."id" = 1 /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (2.5ms)[0m  [1m[35mCOMMIT /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN /*application='ECommApi'*/[0m
+  [1m[36mOrderItem Exists? (2.0ms)[0m  [1m[34mSELECT 1 AS one FROM "order_items" WHERE "order_items"."product_id" = 2 LIMIT 1 /*application='ECommApi'*/[0m
+  [1m[36mCartItem Load (0.3ms)[0m  [1m[34mSELECT "cart_items".* FROM "cart_items" WHERE "cart_items"."product_id" = 2 /*application='ECommApi'*/[0m
+  [1m[36mProduct Destroy (0.4ms)[0m  [1m[31mDELETE FROM "products" WHERE "products"."id" = 2 /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (0.8ms)[0m  [1m[35mCOMMIT /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN /*application='ECommApi'*/[0m
+  [1m[36mOrderItem Exists? (1.5ms)[0m  [1m[34mSELECT 1 AS one FROM "order_items" WHERE "order_items"."product_id" = 3 LIMIT 1 /*application='ECommApi'*/[0m
+  [1m[36mCartItem Load (0.2ms)[0m  [1m[34mSELECT "cart_items".* FROM "cart_items" WHERE "cart_items"."product_id" = 3 /*application='ECommApi'*/[0m
+  [1m[36mProduct Destroy (0.5ms)[0m  [1m[31mDELETE FROM "products" WHERE "products"."id" = 3 /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (0.8ms)[0m  [1m[35mCOMMIT /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN /*application='ECommApi'*/[0m
+  [1m[36mOrderItem Exists? (4.4ms)[0m  [1m[34mSELECT 1 AS one FROM "order_items" WHERE "order_items"."product_id" = 4 LIMIT 1 /*application='ECommApi'*/[0m
+  [1m[36mCartItem Load (0.3ms)[0m  [1m[34mSELECT "cart_items".* FROM "cart_items" WHERE "cart_items"."product_id" = 4 /*application='ECommApi'*/[0m
+  [1m[36mProduct Destroy (0.4ms)[0m  [1m[31mDELETE FROM "products" WHERE "products"."id" = 4 /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (0.7ms)[0m  [1m[35mCOMMIT /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN /*application='ECommApi'*/[0m
+  [1m[36mOrderItem Exists? (1.7ms)[0m  [1m[34mSELECT 1 AS one FROM "order_items" WHERE "order_items"."product_id" = 5 LIMIT 1 /*application='ECommApi'*/[0m
+  [1m[36mCartItem Load (0.2ms)[0m  [1m[34mSELECT "cart_items".* FROM "cart_items" WHERE "cart_items"."product_id" = 5 /*application='ECommApi'*/[0m
+  [1m[36mProduct Destroy (0.7ms)[0m  [1m[31mDELETE FROM "products" WHERE "products"."id" = 5 /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (0.7ms)[0m  [1m[35mCOMMIT /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN /*application='ECommApi'*/[0m
+  [1m[36mOrderItem Exists? (1.8ms)[0m  [1m[34mSELECT 1 AS one FROM "order_items" WHERE "order_items"."product_id" = 6 LIMIT 1 /*application='ECommApi'*/[0m
+  [1m[36mCartItem Load (0.2ms)[0m  [1m[34mSELECT "cart_items".* FROM "cart_items" WHERE "cart_items"."product_id" = 6 /*application='ECommApi'*/[0m
+  [1m[36mProduct Destroy (0.4ms)[0m  [1m[31mDELETE FROM "products" WHERE "products"."id" = 6 /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (0.9ms)[0m  [1m[35mCOMMIT /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN /*application='ECommApi'*/[0m
+  [1m[36mOrderItem Exists? (1.6ms)[0m  [1m[34mSELECT 1 AS one FROM "order_items" WHERE "order_items"."product_id" = 7 LIMIT 1 /*application='ECommApi'*/[0m
+  [1m[36mCartItem Load (0.2ms)[0m  [1m[34mSELECT "cart_items".* FROM "cart_items" WHERE "cart_items"."product_id" = 7 /*application='ECommApi'*/[0m
+  [1m[36mProduct Destroy (0.2ms)[0m  [1m[31mDELETE FROM "products" WHERE "products"."id" = 7 /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (0.7ms)[0m  [1m[35mCOMMIT /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN /*application='ECommApi'*/[0m
+  [1m[36mOrderItem Exists? (1.3ms)[0m  [1m[34mSELECT 1 AS one FROM "order_items" WHERE "order_items"."product_id" = 8 LIMIT 1 /*application='ECommApi'*/[0m
+  [1m[36mCartItem Load (0.2ms)[0m  [1m[34mSELECT "cart_items".* FROM "cart_items" WHERE "cart_items"."product_id" = 8 /*application='ECommApi'*/[0m
+  [1m[36mProduct Destroy (0.3ms)[0m  [1m[31mDELETE FROM "products" WHERE "products"."id" = 8 /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (0.7ms)[0m  [1m[35mCOMMIT /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN /*application='ECommApi'*/[0m
+  [1m[36mOrderItem Exists? (2.2ms)[0m  [1m[34mSELECT 1 AS one FROM "order_items" WHERE "order_items"."product_id" = 9 LIMIT 1 /*application='ECommApi'*/[0m
+  [1m[36mCartItem Load (0.2ms)[0m  [1m[34mSELECT "cart_items".* FROM "cart_items" WHERE "cart_items"."product_id" = 9 /*application='ECommApi'*/[0m
+  [1m[36mProduct Destroy (0.3ms)[0m  [1m[31mDELETE FROM "products" WHERE "products"."id" = 9 /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (0.7ms)[0m  [1m[35mCOMMIT /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN /*application='ECommApi'*/[0m
+  [1m[36mOrderItem Exists? (1.4ms)[0m  [1m[34mSELECT 1 AS one FROM "order_items" WHERE "order_items"."product_id" = 10 LIMIT 1 /*application='ECommApi'*/[0m
+  [1m[36mCartItem Load (0.3ms)[0m  [1m[34mSELECT "cart_items".* FROM "cart_items" WHERE "cart_items"."product_id" = 10 /*application='ECommApi'*/[0m
+  [1m[36mProduct Destroy (0.3ms)[0m  [1m[31mDELETE FROM "products" WHERE "products"."id" = 10 /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (0.7ms)[0m  [1m[35mCOMMIT /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN /*application='ECommApi'*/[0m
+  [1m[36mOrderItem Exists? (1.0ms)[0m  [1m[34mSELECT 1 AS one FROM "order_items" WHERE "order_items"."product_id" = 11 LIMIT 1 /*application='ECommApi'*/[0m
+  [1m[36mCartItem Load (0.2ms)[0m  [1m[34mSELECT "cart_items".* FROM "cart_items" WHERE "cart_items"."product_id" = 11 /*application='ECommApi'*/[0m
+  [1m[36mProduct Destroy (0.2ms)[0m  [1m[31mDELETE FROM "products" WHERE "products"."id" = 11 /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (0.8ms)[0m  [1m[35mCOMMIT /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN /*application='ECommApi'*/[0m
+  [1m[36mOrderItem Exists? (1.4ms)[0m  [1m[34mSELECT 1 AS one FROM "order_items" WHERE "order_items"."product_id" = 12 LIMIT 1 /*application='ECommApi'*/[0m
+  [1m[36mCartItem Load (0.2ms)[0m  [1m[34mSELECT "cart_items".* FROM "cart_items" WHERE "cart_items"."product_id" = 12 /*application='ECommApi'*/[0m
+  [1m[36mProduct Destroy (0.2ms)[0m  [1m[31mDELETE FROM "products" WHERE "products"."id" = 12 /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (0.8ms)[0m  [1m[35mCOMMIT /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN /*application='ECommApi'*/[0m
+  [1m[36mOrderItem Exists? (1.2ms)[0m  [1m[34mSELECT 1 AS one FROM "order_items" WHERE "order_items"."product_id" = 13 LIMIT 1 /*application='ECommApi'*/[0m
+  [1m[36mCartItem Load (0.2ms)[0m  [1m[34mSELECT "cart_items".* FROM "cart_items" WHERE "cart_items"."product_id" = 13 /*application='ECommApi'*/[0m
+  [1m[36mProduct Destroy (0.3ms)[0m  [1m[31mDELETE FROM "products" WHERE "products"."id" = 13 /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (0.9ms)[0m  [1m[35mCOMMIT /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN /*application='ECommApi'*/[0m
+  [1m[36mOrderItem Exists? (1.2ms)[0m  [1m[34mSELECT 1 AS one FROM "order_items" WHERE "order_items"."product_id" = 14 LIMIT 1 /*application='ECommApi'*/[0m
+  [1m[36mCartItem Load (0.4ms)[0m  [1m[34mSELECT "cart_items".* FROM "cart_items" WHERE "cart_items"."product_id" = 14 /*application='ECommApi'*/[0m
+  [1m[36mProduct Destroy (0.3ms)[0m  [1m[31mDELETE FROM "products" WHERE "products"."id" = 14 /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (0.9ms)[0m  [1m[35mCOMMIT /*application='ECommApi'*/[0m
+  [1m[36mCategory Load (0.6ms)[0m  [1m[34mSELECT "categories".* FROM "categories" /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (13.4ms)[0m  [1m[35mBEGIN /*application='ECommApi'*/[0m
+  [1m[36mProduct Exists? (18.5ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE "products"."category_id" = 1 LIMIT 1 /*application='ECommApi'*/[0m
+  [1m[36mCategory Destroy (1.5ms)[0m  [1m[31mDELETE FROM "categories" WHERE "categories"."id" = 1 /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (1.0ms)[0m  [1m[35mCOMMIT /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN /*application='ECommApi'*/[0m
+  [1m[36mProduct Exists? (2.2ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE "products"."category_id" = 2 LIMIT 1 /*application='ECommApi'*/[0m
+  [1m[36mCategory Destroy (0.5ms)[0m  [1m[31mDELETE FROM "categories" WHERE "categories"."id" = 2 /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (0.7ms)[0m  [1m[35mCOMMIT /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN /*application='ECommApi'*/[0m
+  [1m[36mProduct Exists? (2.1ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE "products"."category_id" = 3 LIMIT 1 /*application='ECommApi'*/[0m
+  [1m[36mCategory Destroy (0.4ms)[0m  [1m[31mDELETE FROM "categories" WHERE "categories"."id" = 3 /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (0.9ms)[0m  [1m[35mCOMMIT /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN /*application='ECommApi'*/[0m
+  [1m[36mProduct Exists? (1.5ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE "products"."category_id" = 4 LIMIT 1 /*application='ECommApi'*/[0m
+  [1m[36mCategory Destroy (0.8ms)[0m  [1m[31mDELETE FROM "categories" WHERE "categories"."id" = 4 /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (0.9ms)[0m  [1m[35mCOMMIT /*application='ECommApi'*/[0m
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN /*application='ECommApi'*/[0m
+  [1m[36mOrder Load (0.3ms)[0m  [1m[34mSELECT "orders".* FROM "orders" WHERE "orders"."user_id" = 1 /*application='ECommApi'*/[0m
+  [1m[36mCartItem Load (0.3ms)[0m  [1m[34mSELECT "cart_items".* FROM "cart_items" WHERE "cart_items"."user_id" = 1 /*application='ECommApi'*/[0m
+  [1m[36mUser Destroy (0.7ms)[0m  [1m[31mDELETE FROM "users" WHERE "users"."id" = 1 /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (1.0ms)[0m  [1m[35mCOMMIT /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN /*application='ECommApi'*/[0m
+  [1m[36mOrder Load (1.7ms)[0m  [1m[34mSELECT "orders".* FROM "orders" WHERE "orders"."user_id" = 2 /*application='ECommApi'*/[0m
+  [1m[36mCartItem Load (0.2ms)[0m  [1m[34mSELECT "cart_items".* FROM "cart_items" WHERE "cart_items"."user_id" = 2 /*application='ECommApi'*/[0m
+  [1m[36mUser Destroy (0.4ms)[0m  [1m[31mDELETE FROM "users" WHERE "users"."id" = 2 /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (0.9ms)[0m  [1m[35mCOMMIT /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN /*application='ECommApi'*/[0m
+  [1m[36mCategory Exists? (2.2ms)[0m  [1m[34mSELECT 1 AS one FROM "categories" WHERE "categories"."name" = 'Electronics' LIMIT 1 /*application='ECommApi'*/[0m
+  [1m[36mCategory Create (0.4ms)[0m  [1m[32mINSERT INTO "categories" ("name", "description", "created_at", "updated_at") VALUES ('Electronics', 'Electronic devices and accessories', '2025-08-06 11:11:54.104746', '2025-08-06 11:11:54.104746') RETURNING "id" /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (2.8ms)[0m  [1m[35mCOMMIT /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN /*application='ECommApi'*/[0m
+  [1m[36mCategory Exists? (3.3ms)[0m  [1m[34mSELECT 1 AS one FROM "categories" WHERE "categories"."name" = 'Clothing' LIMIT 1 /*application='ECommApi'*/[0m
+  [1m[36mCategory Create (0.5ms)[0m  [1m[32mINSERT INTO "categories" ("name", "description", "created_at", "updated_at") VALUES ('Clothing', 'Apparel and fashion items', '2025-08-06 11:11:54.154003', '2025-08-06 11:11:54.154003') RETURNING "id" /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (0.9ms)[0m  [1m[35mCOMMIT /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN /*application='ECommApi'*/[0m
+  [1m[36mCategory Exists? (1.7ms)[0m  [1m[34mSELECT 1 AS one FROM "categories" WHERE "categories"."name" = 'Books' LIMIT 1 /*application='ECommApi'*/[0m
+  [1m[36mCategory Create (0.3ms)[0m  [1m[32mINSERT INTO "categories" ("name", "description", "created_at", "updated_at") VALUES ('Books', 'Books and reading materials', '2025-08-06 11:11:54.173749', '2025-08-06 11:11:54.173749') RETURNING "id" /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (1.0ms)[0m  [1m[35mCOMMIT /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN /*application='ECommApi'*/[0m
+  [1m[36mCategory Exists? (1.7ms)[0m  [1m[34mSELECT 1 AS one FROM "categories" WHERE "categories"."name" = 'Home & Garden' LIMIT 1 /*application='ECommApi'*/[0m
+  [1m[36mCategory Create (0.2ms)[0m  [1m[32mINSERT INTO "categories" ("name", "description", "created_at", "updated_at") VALUES ('Home & Garden', 'Home improvement and garden supplies', '2025-08-06 11:11:54.186063', '2025-08-06 11:11:54.186063') RETURNING "id" /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (1.0ms)[0m  [1m[35mCOMMIT /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN /*application='ECommApi'*/[0m
+  [1m[36mUser Exists? (2.0ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = 'john@example.com' LIMIT 1 /*application='ECommApi'*/[0m
+  [1m[36mUser Create (0.3ms)[0m  [1m[32mINSERT INTO "users" ("email", "password_digest", "first_name", "last_name", "created_at", "updated_at") VALUES ('john@example.com', '$2a$12$odo0m0ENqAf6M9JGsPwA6OGsXdrDXzmBteK2jZJc24pB.piD7qSl.', 'John', 'Doe', '2025-08-06 11:11:54.429038', '2025-08-06 11:11:54.429038') RETURNING "id" /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (2.6ms)[0m  [1m[35mCOMMIT /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN /*application='ECommApi'*/[0m
+  [1m[36mUser Exists? (1.3ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = 'jane@example.com' LIMIT 1 /*application='ECommApi'*/[0m
+  [1m[36mUser Create (0.2ms)[0m  [1m[32mINSERT INTO "users" ("email", "password_digest", "first_name", "last_name", "created_at", "updated_at") VALUES ('jane@example.com', '$2a$12$GNLNhT/5N5FaIGMwnCMykuiETe8963ASZGNC4W9ES2ECLw9RMqxaW', 'Jane', 'Smith', '2025-08-06 11:11:54.669320', '2025-08-06 11:11:54.669320') RETURNING "id" /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (2.5ms)[0m  [1m[35mCOMMIT /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN /*application='ECommApi'*/[0m
+  [1m[36mProduct Create (7.4ms)[0m  [1m[32mINSERT INTO "products" ("name", "description", "price", "inventory_count", "category_id", "created_at", "updated_at") VALUES ('iPhone 15', 'Latest Apple smartphone with advanced features', 999.99, 50, 5, '2025-08-06 11:11:54.698934', '2025-08-06 11:11:54.698934') RETURNING "id" /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (0.8ms)[0m  [1m[35mCOMMIT /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN /*application='ECommApi'*/[0m
+  [1m[36mProduct Create (2.1ms)[0m  [1m[32mINSERT INTO "products" ("name", "description", "price", "inventory_count", "category_id", "created_at", "updated_at") VALUES ('Samsung Galaxy S24', 'Powerful Android smartphone', 899.99, 30, 5, '2025-08-06 11:11:54.734339', '2025-08-06 11:11:54.734339') RETURNING "id" /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (1.2ms)[0m  [1m[35mCOMMIT /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN /*application='ECommApi'*/[0m
+  [1m[36mProduct Create (4.9ms)[0m  [1m[32mINSERT INTO "products" ("name", "description", "price", "inventory_count", "category_id", "created_at", "updated_at") VALUES ('MacBook Pro', 'High-performance laptop for professionals', 1999.99, 15, 5, '2025-08-06 11:11:54.746147', '2025-08-06 11:11:54.746147') RETURNING "id" /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (0.8ms)[0m  [1m[35mCOMMIT /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN /*application='ECommApi'*/[0m
+  [1m[36mProduct Create (1.5ms)[0m  [1m[32mINSERT INTO "products" ("name", "description", "price", "inventory_count", "category_id", "created_at", "updated_at") VALUES ('Sony Headphones', 'Noise-canceling wireless headphones', 299.99, 100, 5, '2025-08-06 11:11:54.757113', '2025-08-06 11:11:54.757113') RETURNING "id" /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (0.9ms)[0m  [1m[35mCOMMIT /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN /*application='ECommApi'*/[0m
+  [1m[36mProduct Create (2.9ms)[0m  [1m[32mINSERT INTO "products" ("name", "description", "price", "inventory_count", "category_id", "created_at", "updated_at") VALUES ('Denim Jeans', 'Classic blue denim jeans', 79.99, 200, 6, '2025-08-06 11:11:54.766473', '2025-08-06 11:11:54.766473') RETURNING "id" /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (0.9ms)[0m  [1m[35mCOMMIT /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN /*application='ECommApi'*/[0m
+  [1m[36mProduct Create (3.9ms)[0m  [1m[32mINSERT INTO "products" ("name", "description", "price", "inventory_count", "category_id", "created_at", "updated_at") VALUES ('Cotton T-Shirt', 'Comfortable cotton t-shirt', 24.99, 150, 6, '2025-08-06 11:11:54.778882', '2025-08-06 11:11:54.778882') RETURNING "id" /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (0.7ms)[0m  [1m[35mCOMMIT /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN /*application='ECommApi'*/[0m
+  [1m[36mProduct Create (2.9ms)[0m  [1m[32mINSERT INTO "products" ("name", "description", "price", "inventory_count", "category_id", "created_at", "updated_at") VALUES ('Leather Jacket', 'Premium leather jacket', 199.99, 25, 6, '2025-08-06 11:11:54.793351', '2025-08-06 11:11:54.793351') RETURNING "id" /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (0.9ms)[0m  [1m[35mCOMMIT /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN /*application='ECommApi'*/[0m
+  [1m[36mProduct Create (1.3ms)[0m  [1m[32mINSERT INTO "products" ("name", "description", "price", "inventory_count", "category_id", "created_at", "updated_at") VALUES ('Running Shoes', 'Comfortable running shoes', 129.99, 80, 6, '2025-08-06 11:11:54.801128', '2025-08-06 11:11:54.801128') RETURNING "id" /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (0.8ms)[0m  [1m[35mCOMMIT /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN /*application='ECommApi'*/[0m
+  [1m[36mProduct Create (1.7ms)[0m  [1m[32mINSERT INTO "products" ("name", "description", "price", "inventory_count", "category_id", "created_at", "updated_at") VALUES ('The Great Gatsby', 'Classic American novel by F. Scott Fitzgerald', 12.99, 500, 7, '2025-08-06 11:11:54.806888', '2025-08-06 11:11:54.806888') RETURNING "id" /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (0.7ms)[0m  [1m[35mCOMMIT /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN /*application='ECommApi'*/[0m
+  [1m[36mProduct Create (2.5ms)[0m  [1m[32mINSERT INTO "products" ("name", "description", "price", "inventory_count", "category_id", "created_at", "updated_at") VALUES ('To Kill a Mockingbird', 'Pulitzer Prize-winning novel by Harper Lee', 14.99, 300, 7, '2025-08-06 11:11:54.823043', '2025-08-06 11:11:54.823043') RETURNING "id" /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (1.2ms)[0m  [1m[35mCOMMIT /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN /*application='ECommApi'*/[0m
+  [1m[36mProduct Create (2.4ms)[0m  [1m[32mINSERT INTO "products" ("name", "description", "price", "inventory_count", "category_id", "created_at", "updated_at") VALUES ('Programming Ruby', 'Comprehensive guide to Ruby programming', 49.99, 75, 7, '2025-08-06 11:11:54.831433', '2025-08-06 11:11:54.831433') RETURNING "id" /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (1.5ms)[0m  [1m[35mCOMMIT /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN /*application='ECommApi'*/[0m
+  [1m[36mProduct Create (2.0ms)[0m  [1m[32mINSERT INTO "products" ("name", "description", "price", "inventory_count", "category_id", "created_at", "updated_at") VALUES ('Garden Hose', '50ft expandable garden hose', 39.99, 60, 8, '2025-08-06 11:11:54.841753', '2025-08-06 11:11:54.841753') RETURNING "id" /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (0.7ms)[0m  [1m[35mCOMMIT /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN /*application='ECommApi'*/[0m
+  [1m[36mProduct Create (2.3ms)[0m  [1m[32mINSERT INTO "products" ("name", "description", "price", "inventory_count", "category_id", "created_at", "updated_at") VALUES ('Plant Pot Set', 'Set of 5 ceramic plant pots', 29.99, 40, 8, '2025-08-06 11:11:54.851470', '2025-08-06 11:11:54.851470') RETURNING "id" /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (0.8ms)[0m  [1m[35mCOMMIT /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mBEGIN /*application='ECommApi'*/[0m
+  [1m[36mProduct Create (2.2ms)[0m  [1m[32mINSERT INTO "products" ("name", "description", "price", "inventory_count", "category_id", "created_at", "updated_at") VALUES ('LED Light Bulbs', 'Energy-efficient LED bulbs (4-pack)', 19.99, 200, 8, '2025-08-06 11:11:54.858002', '2025-08-06 11:11:54.858002') RETURNING "id" /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (0.8ms)[0m  [1m[35mCOMMIT /*application='ECommApi'*/[0m
+  [1m[36mProduct Load (0.5ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE "products"."name" = 'iPhone 15' LIMIT 1 /*application='ECommApi'*/[0m
+  [1m[36mProduct Load (0.5ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE "products"."name" = 'Denim Jeans' LIMIT 1 /*application='ECommApi'*/[0m
+  [1m[36mProduct Load (1.0ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE "products"."name" = 'Sony Headphones' LIMIT 1 /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN /*application='ECommApi'*/[0m
+  [1m[36mCartItem Exists? (6.1ms)[0m  [1m[34mSELECT 1 AS one FROM "cart_items" WHERE "cart_items"."product_id" = 15 AND "cart_items"."user_id" = 3 LIMIT 1 /*application='ECommApi'*/[0m
+  [1m[36mCartItem Create (0.6ms)[0m  [1m[32mINSERT INTO "cart_items" ("user_id", "product_id", "quantity", "created_at", "updated_at") VALUES (3, 15, 1, '2025-08-06 11:11:54.913786', '2025-08-06 11:11:54.913786') RETURNING "id" /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (0.9ms)[0m  [1m[35mCOMMIT /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN /*application='ECommApi'*/[0m
+  [1m[36mCartItem Exists? (1.8ms)[0m  [1m[34mSELECT 1 AS one FROM "cart_items" WHERE "cart_items"."product_id" = 18 AND "cart_items"."user_id" = 3 LIMIT 1 /*application='ECommApi'*/[0m
+  [1m[36mCartItem Create (0.4ms)[0m  [1m[32mINSERT INTO "cart_items" ("user_id", "product_id", "quantity", "created_at", "updated_at") VALUES (3, 18, 2, '2025-08-06 11:11:54.930364', '2025-08-06 11:11:54.930364') RETURNING "id" /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (0.8ms)[0m  [1m[35mCOMMIT /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN /*application='ECommApi'*/[0m
+  [1m[36mCartItem Exists? (1.3ms)[0m  [1m[34mSELECT 1 AS one FROM "cart_items" WHERE "cart_items"."product_id" = 19 AND "cart_items"."user_id" = 4 LIMIT 1 /*application='ECommApi'*/[0m
+  [1m[36mCartItem Create (0.4ms)[0m  [1m[32mINSERT INTO "cart_items" ("user_id", "product_id", "quantity", "created_at", "updated_at") VALUES (4, 19, 1, '2025-08-06 11:11:54.937760', '2025-08-06 11:11:54.937760') RETURNING "id" /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (0.7ms)[0m  [1m[35mCOMMIT /*application='ECommApi'*/[0m
+  [1m[36mProduct Load (0.4ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE "products"."name" = 'Cotton T-Shirt' LIMIT 1 /*application='ECommApi'*/[0m
+  [1m[36mProduct Load (0.3ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE "products"."name" = 'The Great Gatsby' LIMIT 1 /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN /*application='ECommApi'*/[0m
+  [1m[36mOrderItem Exists? (9.5ms)[0m  [1m[34mSELECT 1 AS one FROM "order_items" WHERE "order_items"."product_id" = 20 AND "order_items"."order_id" IS NULL LIMIT 1 /*application='ECommApi'*/[0m
+  [1m[36mOrderItem Exists? (0.7ms)[0m  [1m[34mSELECT 1 AS one FROM "order_items" WHERE "order_items"."product_id" = 23 AND "order_items"."order_id" IS NULL LIMIT 1 /*application='ECommApi'*/[0m
+  [1m[36mOrder Create (0.7ms)[0m  [1m[32mINSERT INTO "orders" ("user_id", "total", "status", "order_date", "created_at", "updated_at") VALUES (3, 62.97, 'confirmed', '2025-07-30 11:11:54.941892', '2025-08-06 11:11:55.018423', '2025-08-06 11:11:55.018423') RETURNING "id" /*application='ECommApi'*/[0m
+  [1m[36mOrderItem Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM "order_items" WHERE "order_items"."product_id" = 20 AND "order_items"."order_id" = 1 LIMIT 1 /*application='ECommApi'*/[0m
+  [1m[36mOrderItem Create (0.8ms)[0m  [1m[32mINSERT INTO "order_items" ("order_id", "product_id", "quantity", "unit_price", "created_at", "updated_at") VALUES (1, 20, 2, 24.99, '2025-08-06 11:11:55.032588', '2025-08-06 11:11:55.032588') RETURNING "id" /*application='ECommApi'*/[0m
+  [1m[36mOrderItem Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM "order_items" WHERE "order_items"."product_id" = 23 AND "order_items"."order_id" = 1 LIMIT 1 /*application='ECommApi'*/[0m
+  [1m[36mOrderItem Create (0.6ms)[0m  [1m[32mINSERT INTO "order_items" ("order_id", "product_id", "quantity", "unit_price", "created_at", "updated_at") VALUES (1, 23, 1, 12.99, '2025-08-06 11:11:55.038751', '2025-08-06 11:11:55.038751') RETURNING "id" /*application='ECommApi'*/[0m
+  [1m[36mTRANSACTION (0.8ms)[0m  [1m[35mCOMMIT /*application='ECommApi'*/[0m
+  [1m[36mCategory Count (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM "categories" /*application='ECommApi'*/[0m
+  [1m[36mProduct Count (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM "products" /*application='ECommApi'*/[0m
+  [1m[36mUser Count (0.4ms)[0m  [1m[34mSELECT COUNT(*) FROM "users" /*application='ECommApi'*/[0m
+  [1m[36mCartItem Count (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM "cart_items" /*application='ECommApi'*/[0m
+  [1m[36mOrder Count (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM "orders" /*application='ECommApi'*/[0m
+  [1m[36mOrderItem Count (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM "order_items" /*application='ECommApi'*/[0m
+Started GET "/" for ::1 at 2025-08-06 14:15:42 +0300
+  [1m[36mActiveRecord::SchemaMigration Load (1.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='ECommApi'*/[0m
+Processing by Api::V1::ProductsController#index as HTML
+  [1m[36mProduct Load (23.0ms)[0m  [1m[34mSELECT "products".* FROM "products" LIMIT 10 OFFSET 0 /*action='index',application='ECommApi',controller='products'*/[0m
+  ↳ app/controllers/api/v1/products_controller.rb:23:in `index'
+  [1m[36mCategory Load (0.6ms)[0m  [1m[34mSELECT "categories".* FROM "categories" WHERE "categories"."id" IN (5, 6, 7) /*action='index',application='ECommApi',controller='products'*/[0m
+  ↳ app/controllers/api/v1/products_controller.rb:23:in `index'
+  [1m[36mProduct Count (0.4ms)[0m  [1m[34mSELECT COUNT(*) FROM "products" /*action='index',application='ECommApi',controller='products'*/[0m
+  ↳ app/controllers/api/v1/products_controller.rb:26:in `index'
+Completed 200 OK in 200ms (Views: 1.6ms | ActiveRecord: 41.9ms (3 queries, 0 cached) | GC: 3.0ms)
+
+
+Started GET "/categories" for ::1 at 2025-08-06 14:18:37 +0300
+  
+ActionController::RoutingError (No route matches [GET] "/categories"):
+  
+Started GET "/" for ::1 at 2025-08-06 14:21:50 +0300
+Processing by Api::V1::ProductsController#index as HTML
+  [1m[36mProduct Load (117.5ms)[0m  [1m[34mSELECT "products".* FROM "products" LIMIT 10 OFFSET 0 /*action='index',application='ECommApi',controller='products'*/[0m
+  ↳ app/controllers/api/v1/products_controller.rb:23:in `index'
+  [1m[36mCategory Load (0.8ms)[0m  [1m[34mSELECT "categories".* FROM "categories" WHERE "categories"."id" IN (5, 6, 7) /*action='index',application='ECommApi',controller='products'*/[0m
+  ↳ app/controllers/api/v1/products_controller.rb:23:in `index'
+  [1m[36mProduct Count (0.5ms)[0m  [1m[34mSELECT COUNT(*) FROM "products" /*action='index',application='ECommApi',controller='products'*/[0m
+  ↳ app/controllers/api/v1/products_controller.rb:26:in `index'
+Completed 200 OK in 206ms (Views: 0.8ms | ActiveRecord: 139.5ms (3 queries, 0 cached) | GC: 2.4ms)
+
+
+  [1m[36mCategory Count (43.4ms)[0m  [1m[34mSELECT COUNT(*) FROM "categories" /*application='ECommApi'*/[0m
+  [1m[36mCategory Count (40.4ms)[0m  [1m[34mSELECT COUNT(*) FROM "categories" /*application='ECommApi'*/[0m
+Started GET "/" for ::1 at 2025-08-06 14:42:04 +0300
+Processing by Api::V1::ProductsController#index as HTML
+  [1m[36mProduct Load (67.5ms)[0m  [1m[34mSELECT "products".* FROM "products" LIMIT 10 OFFSET 0 /*action='index',application='ECommApi',controller='products'*/[0m
+  ↳ app/controllers/api/v1/products_controller.rb:23:in `index'
+  [1m[36mCategory Load (1.9ms)[0m  [1m[34mSELECT "categories".* FROM "categories" WHERE "categories"."id" IN (5, 6, 7) /*action='index',application='ECommApi',controller='products'*/[0m
+  ↳ app/controllers/api/v1/products_controller.rb:23:in `index'
+  [1m[36mProduct Count (0.4ms)[0m  [1m[34mSELECT COUNT(*) FROM "products" /*action='index',application='ECommApi',controller='products'*/[0m
+  ↳ app/controllers/api/v1/products_controller.rb:26:in `index'
+Completed 200 OK in 165ms (Views: 1.3ms | ActiveRecord: 93.1ms (3 queries, 0 cached) | GC: 0.2ms)
+
+
+Started GET "/api/v1/products" for ::1 at 2025-08-06 14:42:22 +0300
+Processing by Api::V1::ProductsController#index as HTML
+  [1m[36mProduct Load (1.1ms)[0m  [1m[34mSELECT "products".* FROM "products" LIMIT 10 OFFSET 0 /*action='index',application='ECommApi',controller='products'*/[0m
+  ↳ app/controllers/api/v1/products_controller.rb:23:in `index'
+  [1m[36mCategory Load (0.4ms)[0m  [1m[34mSELECT "categories".* FROM "categories" WHERE "categories"."id" IN (5, 6, 7) /*action='index',application='ECommApi',controller='products'*/[0m
+  ↳ app/controllers/api/v1/products_controller.rb:23:in `index'
+  [1m[36mProduct Count (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM "products" /*action='index',application='ECommApi',controller='products'*/[0m
+  ↳ app/controllers/api/v1/products_controller.rb:26:in `index'
+Completed 200 OK in 47ms (Views: 0.3ms | ActiveRecord: 1.7ms (3 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/api/v1/categories" for ::1 at 2025-08-06 14:42:33 +0300
+Processing by Api::V1::CategoriesController#index as HTML
+  [1m[36mCategory Load (0.7ms)[0m  [1m[34mSELECT "categories".* FROM "categories" /*action='index',application='ECommApi',controller='categories'*/[0m
+  ↳ app/controllers/api/v1/categories_controller.rb:6:in `index'
+Completed 200 OK in 58ms (Views: 53.2ms | ActiveRecord: 0.7ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/api/v1/orders" for ::1 at 2025-08-06 14:42:45 +0300
+Processing by Api::V1::OrdersController#index as HTML
+  [1m[36mUser Load (0.8ms)[0m  [1m[34mSELECT "users".* FROM "users" ORDER BY "users"."id" ASC LIMIT 1 /*action='index',application='ECommApi',controller='orders'*/[0m
+  ↳ app/controllers/api/v1/orders_controller.rb:130:in `current_user'
+  [1m[36mOrder Load (2.5ms)[0m  [1m[34mSELECT "orders".* FROM "orders" WHERE "orders"."user_id" = 3 ORDER BY "orders"."order_date" DESC /*action='index',application='ECommApi',controller='orders'*/[0m
+  ↳ app/controllers/api/v1/orders_controller.rb:8:in `index'
+  [1m[36mOrderItem Load (0.5ms)[0m  [1m[34mSELECT "order_items".* FROM "order_items" WHERE "order_items"."order_id" = 1 /*action='index',application='ECommApi',controller='orders'*/[0m
+  ↳ app/controllers/api/v1/orders_controller.rb:8:in `index'
+  [1m[36mProduct Load (0.3ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE "products"."id" IN (20, 23) /*action='index',application='ECommApi',controller='orders'*/[0m
+  ↳ app/controllers/api/v1/orders_controller.rb:8:in `index'
+Completed 200 OK in 361ms (Views: 0.2ms | ActiveRecord: 35.5ms (4 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/api/v1/users" for ::1 at 2025-08-06 14:43:03 +0300
+Processing by Api::V1::UsersController#index as HTML
+  [1m[36mUser Load (1.0ms)[0m  [1m[34mSELECT "users".* FROM "users" /*action='index',application='ECommApi',controller='users'*/[0m
+  ↳ app/controllers/api/v1/users_controller.rb:6:in `index'
+Completed 200 OK in 17ms (Views: 14.4ms | ActiveRecord: 1.0ms (1 query, 0 cached) | GC: 0.0ms)
+
+
